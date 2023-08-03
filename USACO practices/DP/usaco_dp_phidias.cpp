@@ -29,12 +29,18 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod          =    1e9 + 7;
-int const maxn         =    1e5 + 10;
+int const maxn         =    1000;
 int const INF          =    LLONG_MAX;
 
-
+int W, H, n;
+pi a[maxn] = {};
+int dp[maxn][maxn] = {};
 void solve() {
-
+    cin >> W >> H;
+    cin >> n;
+    for(int i = 0; i < n; i++) {
+        cin >> a[i].fi >> a[i].se;
+    }
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

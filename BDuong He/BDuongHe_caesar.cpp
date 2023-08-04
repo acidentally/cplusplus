@@ -29,7 +29,6 @@ typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       (int)1e8;
 int const maxn      =       110;
-// int const INF       =       1e18;
 
 int n1, n2, k1, k2;  
 int dp[maxn][maxn][3] = {};     
@@ -42,7 +41,6 @@ void solve() {
         for(int j = n2; j >= 0; j--) {
             for(int sec = 1; sec <= min(i, k1); sec++) {(dp[i - sec][j][1] += dp[i][j][2] % mod) % mod;}
             for(int sec = 1; sec <= min(j, k2); sec++) {(dp[i][j - sec][2] += dp[i][j][1] % mod) % mod;}   
-            // cerr << i << ' ' << j << ' ' << dp[10][10][2] << endl;
         }
     }
     cout << ((dp[0][0][1] + dp[0][0][2]) % mod + mod) % mod;
@@ -50,7 +48,7 @@ void solve() {
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    freopen("caesar.INP", "r", stdin);
-    freopen("caesar.OUT", "w", stdout);
+    // freopen("caesar.INP", "r", stdin);
+    // freopen("caesar.OUT", "w", stdout);
     solve();
 }

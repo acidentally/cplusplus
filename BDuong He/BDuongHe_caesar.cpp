@@ -27,43 +27,30 @@ using namespace std;
 typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
-int const mod       =       1e8;
-int const maxn      =       500;
-int const INF       =       1e18;
+int const mod       =       (int)1e8;
+int const maxn      =       110;
+// int const INF       =       1e18;
 
 int n1, n2, k1, k2;  
-int dp[maxn][3][maxn] = {};       
+int dp[maxn][maxn][3] = {};     
 void solve() {              
-    cin >> n1 >> n2 >> k1 >> k2;
-    int total = n1 + n2;
-    dp[1][1][1] = dp[1][2][1] = 1;
-    for(int i = 2; i <= total; i++) {
-        for(int sec = 1; sec <= min(k1, i); sec++) {
-            //dp[i][1][sec] += mọi dp[i - sec][2][j] với j bất kỳ từ 1 tới min(k2, i - sec);
-            for(int j = 1; j <= min(k2, i - sec); j++) {
-                (dp[i][1][sec] += dp[i - sec][2][j]) % mod;
-            }
-        }
-        for(int sec = 1; sec <= min(k2, i); sec++) {
-            //Tương tự dp[i][2][sec] += mọi dp[i - sec][1][j] với j bất kỳ từ 1 tới min(k1, i - sec)
-            for(int j = 1; j <= min(k1, i - sec); j++) {
-                (dp[i][2][sec] += dp[i - sec][1][j]) % mod;
-            }
+    cin >> n1 >> n2 >> k1 >> k2;  
+    for(int i = 1; i <= min(k1, n1); i++) dp[n1 - i][n2][1] = 1;
+    for(int i = 1; i <= min(k2, n2); i++) dp[n1][n2 - i][2] = 1;
+
+    for(int i = n1; i >= 0; i--) {
+        for(int j = n2; j >= 0; j--) {
+            for(int sec = 1; sec <= min(i, k1); sec++) {(dp[i - sec][j][1] += dp[i][j][2] % mod) % mod;}
+            for(int sec = 1; sec <= min(j, k2); sec++) {(dp[i][j - sec][2] += dp[i][j][1] % mod) % mod;}   
+            // cerr << i << ' ' << j << ' ' << dp[10][10][2] << endl;
         }
     }
-    int ans = 0;
-    for(int i = 0; i <= k1; i++) {
-        (ans += dp[total][1][i]) % mod;
-    }
-    for(int i = 1; i <= k2; i++) {
-        (ans += dp[total][2][i]) % mod;
-    }
-    cout << ans;
+    cout << ((dp[0][0][1] + dp[0][0][2]) % mod + mod) % mod;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    // freopen("caesar.INP", "r", stdin);
-    // freopen("caesar.OUT", "w", stdout);
+    freopen("caesar.INP", "r", stdin);
+    freopen("caesar.OUT", "w", stdout);
     solve();
 }

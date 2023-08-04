@@ -41,6 +41,13 @@ void solve() {
     for(int i = 0; i < n; i++) {
         cin >> a[i].fi >> a[i].se;
     }
+    for(int i = 1; i <= W; i++) {
+        for(int j = 1; j <= H; j++) {
+            for(int bri = 0; bri < n; bri++)  {
+                
+            }
+        }
+    }
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

@@ -34,18 +34,20 @@ int const INF       =       1e18;
 int n, x;
 int c[150] = {}, dp[maxn] = {};
 void solve() {
-	cin >> n >> x;
-	for(int i = 1; i <= n; i++) {
-		cin >> c[i];
-		dp[c[i]] = 1;
-	}
-	for(int i = 1; i <= x; i++) {
-		for(int j = 1; j <= n; j++) {
-			if(i - c[j] < 0) break;
-			(dp[i] += dp[i - c[j]]) % mod;
-		}
-	}
-	cout << dp[x] % mod;
+	// cin >> n >> x;
+	// for(int i = 1; i <= n; i++) {
+	// 	cin >> c[i];
+	// 	dp[c[i]] = 1;
+	// }
+	// for(int i = 1; i <= x; i++) {
+	// 	for(int j = 1; j <= n; j++) {
+	// 		if(i - c[j] < 0) break;
+	// 		(dp[i] += dp[i - c[j]]) % mod;
+	// 	}
+	// }
+	// cout << dp[x] % mod;
+	int n = -10;
+	cout << -1/3;
 }
 signed main() {
 	ios_base:: sync_with_stdio(0);

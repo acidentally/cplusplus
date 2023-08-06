@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: cses_1158.cpp
+File name: CF_1856B.cpp
 Code by : acident / lckintrovert
-Created since : 06/08/2023 ~~ 18:14:48
+Created since : 06/08/2023 ~~ 10:48:06
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -31,27 +31,34 @@ int const mod       =       1e9 + 7;
 int const maxn      =       1e5 + 10;
 int const INF       =       1e18;
  
-int n, x;
-int h[2000] = {}, s[2000] = {}, dp[maxn] = {};
+int n, a[maxn] = {};
 void solve() {
-    cin >> n >> x;
+    cin >> n;
+    int sum = 0;
     for(int i = 1; i <= n; i++) {
-        cin >> h[i];
+        cin >> a[i];
+        sum += a[i];
     }
-    for(int i = 1; i <= n; i++) {
-        cin >> s[i];
+    if(sum < n + n / 2) {
+        NO 
+        return;
     }
-    for(int i = 1; i <= n; i++) {
-        for(int j = x ; j >= 0; j--) {
-            if(j - h[i] >= 0) dp[j] = max(dp[j], dp[j - h[i]] + s[i]);
-        }
+    int cnt = 0;
+    for(int i = 1; i < n; i++) {
+        if(a[i] == 1) {
+            sum -= 2;
+            cnt++;
+        } else sum -= 1;
     }
-    // for(int i = 1; i <= x; i++) cerr << i << ' ' << dp[i] << endl;
-    cout << dp[x];
-}
-signed main() {
+    // cerr << sum << endl;
+    if(sum <= 0) NO  
+    else if(sum == a[n] && (cnt == 0 || a[n] == 1)) NO
+    else YES
+}   
+main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
     //File?
-    solve();
+    int tc; cin >> tc;
+    while(tc--) solve();
 }

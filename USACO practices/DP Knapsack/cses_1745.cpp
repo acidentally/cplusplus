@@ -30,29 +30,23 @@ int const maxn = 2e5 + 10;
 int n, a[110] = {};
 bool check[maxn] = {};
 vi all;
-signed main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
-    cout.tie(NULL);
+void solve() {
     cin >> n;
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
     all.pb(a[0]);
     check[a[0]] = true;
-    for (int i = 1; i < n; i++)
-    {
+    for (int i = 1; i < n; i++) {
         vi c;
-        for (int j = 0; j < all.size(); j++)
-        {
-            if (!check[all[j] + a[i]])
-            {
-                check[all[j] + a[i]] = true;
-                c.pb(all[j] + a[i]);
+        for (auto s : all) {
+            if (!check[s + a[i]]) {
+                check[s + a[i]] = true;
+                c.pb(s + a[i]);
             }
         }
-        for(auto s : c) all.pb(s);
+        for (auto s : c)
+            all.pb(s);
         if (check[a[i]])
             continue;
         check[a[i]] = true;
@@ -60,6 +54,10 @@ signed main() {
     }
     sort(all.begin(), all.end());
     cout << all.size() << endl;
-    for (int j = 0; j < all.size(); j++)
-        cout << all[j] << ' ';
-} 
+    for (auto s : all) cout << s << ' ';
+}
+signed main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(NULL); cout.tie(NULL);
+    solve();
+}

@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: cses_1158.cpp
+File name: CF_1856A.cpp
 Code by : acident / lckintrovert
-Created since : 06/08/2023 ~~ 18:14:48
+Created since : 06/08/2023 ~~ 10:44:44
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -28,30 +28,36 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       1e5 + 10;
+int const maxn      =       100;
 int const INF       =       1e18;
  
-int n, x;
-int h[2000] = {}, s[2000] = {}, dp[maxn] = {};
+int n, a[maxn] = {};
 void solve() {
-    cin >> n >> x;
+    cin >> n;
     for(int i = 1; i <= n; i++) {
-        cin >> h[i];
+        cin >> a[i];
     }
-    for(int i = 1; i <= n; i++) {
-        cin >> s[i];
-    }
-    for(int i = 1; i <= n; i++) {
-        for(int j = x ; j >= 0; j--) {
-            if(j - h[i] >= 0) dp[j] = max(dp[j], dp[j - h[i]] + s[i]);
+    int stIdx = -1;
+    for(int i = n; i >= 0; i--) {
+        if(a[i] < a[i - 1]) {
+            stIdx = i - 1;
+            break;
         }
     }
-    // for(int i = 1; i <= x; i++) cerr << i << ' ' << dp[i] << endl;
-    cout << dp[x];
+    if(stIdx == -1) {
+        cout << 0 << endl;
+        return;
+    }
+    int ans = 0;
+    for(int i = stIdx; i >= 1; i--) {
+        ans = max(ans, a[i]);
+    }
+    cout << ans << endl;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
     //File?
-    solve();
+    int tc; cin >> tc;
+    while(tc--) solve();
 }

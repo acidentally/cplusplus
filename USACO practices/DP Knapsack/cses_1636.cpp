@@ -29,31 +29,23 @@ typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
 int const maxn      =       1e6 + 1;
  
-#pragma optimization ("Ofast")
-
 int n, x, temp;
-int c[110], dp[maxn + 10][110] = {};
-void solve() {
-    cin >> n >> x;
-    for(int i = 0; i < n; i++) {
-        cin >> c[i];  
-    }
-    sort(c, c + n);
-    dp[0][0] = 1;
-   
-    for(int i = 0; i < x; i++) {
-        for(int j = 0; (j < n) && (i + c[j] <= x); j++) {
-            (dp[i][j + 1] += dp[i][j]) %= mod;
-            (dp[i + c[j]][j] += dp[i][j]) %= mod;
-        }
-    }
-    for(int j = 0; j < n - 1; j++) {
-        (dp[x][j + 1] += dp[x][j]) %= mod;
-    }
-    cout << dp[x][n - 1];
-}
+int c[110], dp[maxn] = {};
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    solve();
+    cin >> n >> x;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> c[i];
+    }
+    dp[0] = 1;
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j <= x; j++) {
+            if(j - c[i] >= 0) {
+                (dp[j] += dp[j - c[i]]) %= mod;
+            }
+        }
+    }
+    cout << dp[x];
 }

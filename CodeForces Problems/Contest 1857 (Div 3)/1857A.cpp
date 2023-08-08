@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: testing.cpp
+File name: 1857A.cpp
 Code by : acident / lckintrovert
-Created since : 08/08/2023 ~~ 11:34:47
+Created since : 08/08/2023 ~~ 11:15:09
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -28,21 +28,26 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       1e5 + 10;
+int const maxn      =       100;
 int const INF       =       1e18;
  
-int n;
-void solve() {
+int n, x;
+int a[maxn] = {};
+void solve() {  
+    int odd = 0, even = 0;
     cin >> n;
-    map<int, int> m;
-    for(int i = 1; i <= n; i++){
-        m[i]++;
+    for(int i = 1; i <= n; i++) {
+        cin >> x;
+        if(x & 1) odd++;
     }
-    for(auto s : m) cout << s.fi;
+    if(odd % 2 == 0) {
+        YES
+    } else NO
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
     //File?
-    solve();
+    int tc; cin >> tc;
+    while(tc--) solve();
 }

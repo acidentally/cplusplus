@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: testing.cpp
+File name: 1857B.cpp
 Code by : acident / lckintrovert
-Created since : 08/08/2023 ~~ 11:34:47
+Created since : 08/08/2023 ~~ 11:22:59
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -28,21 +28,38 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       1e5 + 10;
+int const maxn      =       2e5 + 10;
 int const INF       =       1e18;
  
-int n;
+string n;
 void solve() {
     cin >> n;
-    map<int, int> m;
-    for(int i = 1; i <= n; i++){
-        m[i]++;
+    n = 'A' + n;   
+    for(int i = 1; i < n.size(); i++) {
+        if(n[i] >= '5') {
+            for(int j = i; j < n.size(); j++) n[j] = '0';
+            i--;
+            n[i]++;
+            while(n[i] >= '5' && i >= 0) {
+                n[i] = '0';
+                i--;
+                if(i >= 0) n[i]++;
+            }
+            if(n[0] != 'A') n[0] = (char)'1';
+            break;
+        }
     }
-    for(auto s : m) cout << s.fi;
+    // cout << n;
+    for(int i = 0; i < n.size(); i++) {
+        if(n[i] == 'A') continue;
+        cout << n[i];
+    }
+    cout << endl;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
     //File?
-    solve();
+    int tc; cin >> tc;
+    while(tc--) solve();
 }

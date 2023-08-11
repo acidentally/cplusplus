@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: 1857C.cpp
+File name: xepdia.cpp
 Code by : acident / lckintrovert
-Created since : 08/08/2023 ~~ 12:16:35
+Created since : 09/08/2023 ~~ 08:20:44
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -28,49 +28,30 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       1e3 + 10;
+int const maxn      =       1e5 + 10;
 int const INF       =       1e9 + 10;
  
 int n, x;
+priority_queue<int> q;
 void solve() {
     cin >> n;
-    map<int, int> m;
-    int k = n * (n - 1) / 2;
-    int b[k + 10] = {}, maxi = -INF;
-    vi check(n, -INF);
-    for(int i = 1; i <= k; i++) {
-        cin >> b[i];
-        maxi = max(maxi, b[i]);
-        m[b[i]]++;
+    for(int i = 1; i <= n; i++) {
+        cin >> x;
+        q.push(x);
     }
-    priority_queue<pi> q;
-    for(auto s : m) {
-        // if(s.se <= n - 1 && check[s.se] == -INF) {check[s.se] = s.fi; continue;}
-        q.push(mp(~s.fi, s.se));        
-    }  
+    int ans = 0, top = INF;
     while(!q.empty()) {
-        int num = ~q.top().fi, cnt = q.top().se;
-        // cerr << num << endl;
+        if(top <= 0) break;
+        ans++;
+        top = min(top - 1, q.top());
         q.pop();
-        if(cnt <= n - 1 && check[cnt] == -INF) {
-            check[cnt] = num;
-        } else {
-            for(int i = min(cnt, n - 1); i >= 1; i--) {
-                if(check[i] == -INF) {
-                    check[i] = num;
-                    if(cnt - i > 0) q.push(mp(~num, cnt - i));
-                    break;
-                }
-            }
-        }
     }
-    for(int i = n - 1; i >= 1; i--) cout << check[i] << ' ';
-    cout << maxi << endl;
-}   
+    cout << ans;
+}
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    //File?
-    int tc; cin >> tc;
-    while(tc--) solve();
+    freopen("xepdia.INP", "r", stdin);
+    freopen("xepdia.OUT", "w", stdout);
+    solve();
 }

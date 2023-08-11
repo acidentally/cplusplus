@@ -39,6 +39,7 @@ void solve() {
     vi z(n, 0);
     z[0] = -1;
     for(int i = 0, l = 0, r = 0; i < A.size(); i++) {
+        
         if(i <= r) z[i] = min(z[i - l], r - i + 1);
         while(i + z[i] < n && A[z[i]] == A[i + z[i]])
             z[i]++;

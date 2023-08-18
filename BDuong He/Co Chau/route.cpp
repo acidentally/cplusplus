@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: tcanbang.cpp
+File name: route.cpp
 Code by : acident / lckintrovert
-Created since : 17/08/2023 ~~ 15:57:18
+Created since : 18/08/2023 ~~ 09:15:34
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -28,36 +28,29 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       2e5 + 10;
+int const maxn      =       200;
 int const INF       =       1e18;
- 
-int n, u, v;
-vi a[maxn] = {};
-int h[maxn] = {}, child[maxn] = {};
-int mini = 2e5 + 10, ans = 0;
-void dfs(int k, int par) {
-    h[k] = h[par] + 1;
-    int vis = 0;
-    for(auto s : a[k]) {
-        if(s == par) continue;
-        dfs(s, k);
-        vis++;
-    }
-    if(a[u].size() == 1) return;
-    if(a[u].size() == 2) {
-        ans += child[a[u][0]] + child[a[u][1]] - child[par];
-        h[]
-    }
 
+int abso(int x, int y) {
+    return max(x - y, y - x);
 }
+
+struct point {
+    int x, y;
+    point() : x(0), y(0) {}
+    point(int x_, int y_) : x(x_), y(y_), {}
+    int dis(point A, point B) {
+        return abs(a.x - b.x) + abs(a.y - b.y);
+    }
+};
+
+int n;
+point a[maxn] = {};
 void solve() {
     cin >> n;
-    for(int i = 1; i < n; i++) {
-        cin >> u >> v;
-        a[u].pb(v);
-        a[v].pb(u);
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i].x >> a[i].y;
     }
-    dfs(1, 0);
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

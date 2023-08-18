@@ -32,8 +32,31 @@ int const maxn      =       1e5 + 10;
 int const INF       =       1e18;
  
 int n;
+bool b[100][100] = {};
 void solve() {
     cin >> n;
+    memset(b, 1, sizeof(b));
+    for(int i = 1; i <= 100; i++) {
+        b[i][i] = 0;
+    }
+    for(int j = 2; j <= 100; j++) {
+        for(int i = j - 1; i >= 1; i--) {
+            int check = 0;
+            for(int k = 1; i * k <= j; k++) {
+                int x = min(i, j - i * k), y = max(i, j - i * k);
+                //b[x][y] mà thua thì b[i][j] thắng
+                //b[x][y] thắng hết thì b{i}[j] thua
+                if(b[x][y] == 0) check = 1;
+            }
+            b[i][j] = check;
+        }
+    }
+    for(int i = 1; i <= 100; i++) {
+        int cnt = 0;
+        for(int j = 1; j <= i; j++) {
+            if(b[j][i] == 0) cnt++;
+        } cout << cnt << ',';
+    }
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

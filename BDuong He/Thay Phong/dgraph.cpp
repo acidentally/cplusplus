@@ -34,7 +34,7 @@ int const INF       =       1e18;
 int n, m, u, v, idx[maxn] = {};
 vi topo, a[maxn] = {};
 int out[maxn] = {}, in[maxn] = {};
-queue<int> vertex;
+priority_queue<int, vi, greater<int> > vertex;
 void solve() {
     cin >> n >> m;
     while(m--) {
@@ -45,9 +45,10 @@ void solve() {
     }
     for(int i = 1; i <= n; i++) {
         if(in[i] == 0) vertex.push(i);
+        sort(all(a[i]));
     }
     while(!vertex.empty()) {
-        u = vertex.front();
+        u = vertex.top();
         vertex.pop();
         topo.pb(u);
         for(auto s : a[u]) {

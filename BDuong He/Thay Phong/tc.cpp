@@ -55,43 +55,37 @@ int sqr(int k) {
 int modPow(int a, int k) {
     if(k <= 0) return 1;
     if(k == 1) return a;
-    if(k & 1) return a * sqr(modPow(a, k >> 1));
+    if(k & 1) return (a * sqr(modPow(a, k >> 1))) % 10;
     return sqr(modPow(a, k >> 1));
 }
 int n;
 int primeCount[maxn] = {};
+int F[maxn] = {};
 map<int, int> m;
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
     eratos();
-    // for(int i = 1; i <= 3; i++) {cin >> n; solve();}
-    while(cin >> n) {
-        memset(primeCount, 0, sizeof(primeCount));
-
-        for (int i = 2; i <= n; i++)
+    int ans = 1;
+    F[1] = 1;
+    for (int i = 2; i <= maxn; i++)
+    {
+        m.clear();
+        int cur = i;
+        while (cur > 1)
         {
-            m.clear();
-            int cur = i;
-            while (cur > 1)
-            {
-                m[minPrime[cur]]++;
-                cur /= minPrime[cur];
-            }
-            for (auto s : m)
-            {
-                primeCount[s.fi] = max(primeCount[s.fi], s.se);
-            }
+            m[minPrime[cur]]++;
+            cur /= minPrime[cur];
         }
-        int mini = min(primeCount[2], primeCount[5]), ans = 1;
-        primeCount[2] -= mini;
-        primeCount[5] -= mini;
-        for (auto s : primes)
+        for (auto s : m)
         {
-            if (primeCount[s] > 0)
-                ans = ans * modPow(s, primeCount[s]) % 10;
+            if(s.fi != 2 && s.fi != 5) ans = (ans * modPow(s.fi, s.se - primeCount[s.fi])) % 10;
+            primeCount[s.fi] = max(primeCount[s.fi], s.se);
         }
-        cout << ans << endl;
+        cur = ans;
+        cur = cur * modPow(2, primeCount[2] - primeCount[5]) * modPow(5, primeCount[5] - primeCount[2]) % 10;
+        F[i] = cur;
     }
-    // cout << 5;
+
+    while(cin >> n) cout << F[n] << endl;
 }

@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: tcanbang.cpp
+File name: chonkeob3.cpp
 Code by : acident / lckintrovert
-Created since : 17/08/2023 ~~ 15:57:18
+Created since : 18/08/2023 ~~ 15:39:28
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -28,36 +28,29 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       2e5 + 10;
+int const maxn      =       1e6 + 10;
 int const INF       =       1e18;
  
-int n, u, v;
-vi a[maxn] = {};
-int h[maxn] = {}, child[maxn] = {};
-int mini = 2e5 + 10, ans = 0;
-void dfs(int k, int par) {
-    h[k] = h[par] + 1;
-    int vis = 0;
-    for(auto s : a[k]) {
-        if(s == par) continue;
-        dfs(s, k);
-        vis++;
-    }
-    if(a[u].size() == 1) return;
-    if(a[u].size() == 2) {
-        ans += child[a[u][0]] + child[a[u][1]] - child[par];
-        h[]
-    }
-
-}
+int n;
+int a[maxn] = {}, dp[maxn][3] = {};
 void solve() {
     cin >> n;
-    for(int i = 1; i < n; i++) {
-        cin >> u >> v;
-        a[u].pb(v);
-        a[v].pb(u);
+    int sum = 0;
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        sum += a[i];
     }
-    dfs(1, 0);
+    // cerr << sum;}
+    dp[1][0] = 0;
+    dp[1][1] = a[1];
+    for(int i = 2; i <= n; i++) {
+        for(int j = 1; j <= 2; j++) dp[i][0] = max(dp[i][0], dp[i - 1][j]);
+        dp[i][1] = a[i] + dp[i - 1][0];
+        dp[i][2] = a[i] + dp[i - 1][1];
+    }
+    int ans = 0;
+    for(int i = 0; i <= 2; i++) ans = max(ans, dp[n][i]);
+    cout << ans;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: tcanbang.cpp
+File name: share2.cpp
 Code by : acident / lckintrovert
-Created since : 17/08/2023 ~~ 15:57:18
+Created since : 18/08/2023 ~~ 10:23:17
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -28,40 +28,34 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       2e5 + 10;
+int const maxn      =       200 + 10;
 int const INF       =       1e18;
  
-int n, u, v;
-vi a[maxn] = {};
-int h[maxn] = {}, child[maxn] = {};
-int mini = 2e5 + 10, ans = 0;
-void dfs(int k, int par) {
-    h[k] = h[par] + 1;
-    int vis = 0;
-    for(auto s : a[k]) {
-        if(s == par) continue;
-        dfs(s, k);
-        vis++;
-    }
-    if(a[u].size() == 1) return;
-    if(a[u].size() == 2) {
-        ans += child[a[u][0]] + child[a[u][1]] - child[par];
-        h[]
-    }
-
-}
+int n, sum = 0, x;
+vector<pi> settings;
 void solve() {
     cin >> n;
-    for(int i = 1; i < n; i++) {
-        cin >> u >> v;
-        a[u].pb(v);
-        a[v].pb(u);
+    settings.pb(mp(0,0));
+    for(int i = 0;i < n; i++) {
+        cin >> x;
+        sum += x;
+        for(int j = settings.size() - 1; j >= 0; j--) {
+            settings.pb(mp(settings[j].fi + x, (settings[j].se | (1 << i))));
+        }
     }
-    dfs(1, 0);
+    int ans = sum;
+    for(auto ptr1 : settings) {
+        if(ptr1.fi < (sum + 2)/3 || ptr1.fi >= ans) continue;
+        for(auto ptr2 : settings) {
+            if(ptr2.fi <= ptr1.fi && (ptr2.fi) >= (sum - ptr1.fi+1)/2 && !(ptr1.se & ptr2.se)) ans = ptr1.fi;
+        }
+    }
+    cout << ans;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    //File?
+    freopen("share.INP", "r", stdin);
+    freopen("share.OUT", "w", stdout);
     solve();
 }

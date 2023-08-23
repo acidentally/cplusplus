@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: cses_1093.cpp
+File name: cses_1638.cpp
 Code by : acident / lckintrovert
-Created since : 23/08/2023 ~~ 14:19:18
+Created since : 23/08/2023 ~~ 17:22:19
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -29,29 +29,36 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       2e5 + 10;
+int const maxn      =       1e3 + 10;
 int const INF       =       1e18;
  
 int n;
-int dp[maxn] = {};
+bool a[maxn][maxn] = {};
+int dp[maxn][maxn] = {};
+char x;
 void solve() {
     cin >> n;
-    if(n * (n + 1) % 4) {
-        cout << 0;
-        return;
-    }
-    int mid = (n * (n + 1)) >> 2;
-    // cout << mid << endl;
-    dp[0] = 1;
     for(int i = 1; i <= n; i++) {
-        for(int j = mid; j >= 1; j--) {
-            if(j - i < 0) break;
-            (dp[j] += dp[j - i]) %= mod;
+        for(int j = 1; j <= n; j++) {
+            cin >> x;
+            if(x == '*') a[i][j] = 1;
         }
     }
-    if(dp[mid] & 1) {
-        cout << ((dp[mid] + mod) >> 1);
-    } else cout << (dp[mid] >> 1);
+    for(int i = 1; i <= n; i++) {
+        if(a[1][i]) break;
+        dp[1][i] = 1;
+    }
+    for(int i = 1; i <= n; i++) {   
+        if(a[i][1]) break;
+        dp[i][1] = 1;
+    }
+    for(int i = 2; i <= n; i++) {
+        for(int j = 2; j <= n; j++) {
+            if(a[i][j]) continue;
+            dp[i][j] = (dp[i - 1][j] + dp[i][j - 1]) % mod;
+        }
+    }
+    cout << dp[n][n] % mod;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
@@ -63,7 +70,3 @@ signed main() {
 /*A place to scribble thoughts
 
 */
-
-
-
-

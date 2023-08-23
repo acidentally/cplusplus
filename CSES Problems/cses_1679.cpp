@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: chonkeob3.cpp
+File name: cses_1697.cpp
 Code by : acident / lckintrovert
-Created since : 18/08/2023 ~~ 15:39:28
+Created since : 21/08/2023 ~~ 15:35:33
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -23,34 +23,44 @@ using namespace std;
 #define YES                 cout << "YES\n";
 #define NO                  cout << "NO\n";
 #define ins                 insert
+#define coutdub(x)          cout << fixed << setprecision(x)
  
 typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       1e6 + 10;
+int const maxn      =       1e5 + 10;
 int const INF       =       1e18;
  
-int n;
-int a[maxn] = {}, dp[maxn][3] = {};
+int n, m, u, v; 
+vi a[maxn] = {}, topo;
+int in[maxn] = {};
 void solve() {
-    cin >> n;
-    int sum = 0;
+    cin >> n >> m;  
+    while(m--) {
+        cin >> u >> v;
+        a[u].pb(v);
+        in[v]++;
+    }
+    queue<int> q;
     for(int i = 1; i <= n; i++) {
-        cin >> a[i];
-        sum += a[i];
+        if(in[i] == 0) q.push(i);
     }
-    // cerr << sum;}
-    dp[1][0] = 0;
-    dp[1][1] = a[1];
-    for(int i = 2; i <= n; i++) {
-        for(int j = 0; j <= 2; j++) dp[i][0] = max(dp[i][0], dp[i - 1][j]);
-        dp[i][1] = a[i] + dp[i - 1][0];
-        dp[i][2] = a[i] + dp[i - 1][1];
+    while(!q.empty()) {
+        int u = q.front();
+        topo.pb(u);
+        q.pop();
+        for(auto s : a[u]) {
+            in[s]--;
+            if(in[s] == 0) q.push(s);
+        }
     }
-    int ans = 0;
-    for(int i = 0; i <= 2; i++) ans = max(ans, dp[n][i]);
-    cout << ans;
+    if(topo.size() != n) {
+        cout << "IMPOSSIBLE";
+        return;
+    }
+    for(auto s : topo) cout << s << ' ';
+
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

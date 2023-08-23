@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: chonkeob3.cpp
+File name: 1858C.cpp
 Code by : acident / lckintrovert
-Created since : 18/08/2023 ~~ 15:39:28
+Created since : 19/08/2023 ~~ 18:53:26
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -28,33 +28,25 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       1e6 + 10;
+int const maxn      =       1e5 + 10;
 int const INF       =       1e18;
  
 int n;
-int a[maxn] = {}, dp[maxn][3] = {};
+bool check[maxn] = {};
 void solve() {
     cin >> n;
-    int sum = 0;
+    memset(check, 0, sizeof(check));
     for(int i = 1; i <= n; i++) {
-        cin >> a[i];
-        sum += a[i];
-    }
-    // cerr << sum;}
-    dp[1][0] = 0;
-    dp[1][1] = a[1];
-    for(int i = 2; i <= n; i++) {
-        for(int j = 0; j <= 2; j++) dp[i][0] = max(dp[i][0], dp[i - 1][j]);
-        dp[i][1] = a[i] + dp[i - 1][0];
-        dp[i][2] = a[i] + dp[i - 1][1];
-    }
-    int ans = 0;
-    for(int i = 0; i <= 2; i++) ans = max(ans, dp[n][i]);
-    cout << ans;
+        for(int j = i; j <= n && !check[j]; j <<= 1) {
+            cout << j << ' ';
+            check[j] = 1;
+        }
+    } cout << endl;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
     //File?
-    solve();
+    int tc; cin >> tc;
+    while(tc--) solve();
 }

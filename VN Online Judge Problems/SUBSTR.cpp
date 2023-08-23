@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: chonkeob3.cpp
+File name: SUBSTR.cpp
 Code by : acident / lckintrovert
-Created since : 18/08/2023 ~~ 15:39:28
+Created since : 21/08/2023 ~~ 14:41:46
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -23,6 +23,7 @@ using namespace std;
 #define YES                 cout << "YES\n";
 #define NO                  cout << "NO\n";
 #define ins                 insert
+#define coutdub(x)          cout << fixed << setprecision(x)
  
 typedef vector<int>         vi;
 typedef pair<int, int>      pi;
@@ -30,27 +31,35 @@ typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
 int const maxn      =       1e6 + 10;
 int const INF       =       1e18;
+int const base      =       31;
  
-int n;
-int a[maxn] = {}, dp[maxn][3] = {};
+string A, B;
+int modPow[maxn] = {}, HashA[maxn] = {};
+int getHash(int i, int j) {
+    return ((HashA[j] - HashA[i - 1] * modPow[j - i + 1] + 1000000000 * mod) % mod);
+}
 void solve() {
-    cin >> n;
-    int sum = 0;
-    for(int i = 1; i <= n; i++) {
-        cin >> a[i];
-        sum += a[i];
+    getline(cin, A);
+    getline(cin, B);
+    int lenA = A.size(), lenB = B.size();
+    A = ' ' + A;
+    B = ' ' + B;
+    modPow[0] = 1;
+    for(int i = 1; i <= lenA; i++) {
+        modPow[i] = (modPow[i - 1] * base) % mod;
     }
-    // cerr << sum;}
-    dp[1][0] = 0;
-    dp[1][1] = a[1];
-    for(int i = 2; i <= n; i++) {
-        for(int j = 0; j <= 2; j++) dp[i][0] = max(dp[i][0], dp[i - 1][j]);
-        dp[i][1] = a[i] + dp[i - 1][0];
-        dp[i][2] = a[i] + dp[i - 1][1];
+    HashA[0] = 0;
+    for(int i = 1; i <= lenA; i++) {
+        HashA[i] = (HashA[i - 1] * base + A[i] - 'a') % mod;
     }
-    int ans = 0;
-    for(int i = 0; i <= 2; i++) ans = max(ans, dp[n][i]);
-    cout << ans;
+    int HashB = 0;
+    for(int i = 1; i <= lenB; i++) {
+        HashB = (HashB * base + B[i] - 'a') % mod;
+    }
+    for(int i = 1; i <= lenA - lenB + 1; i++) {
+        if(getHash(i, i + lenB - 1) == HashB) cout << i << ' ';
+    }
+    return;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

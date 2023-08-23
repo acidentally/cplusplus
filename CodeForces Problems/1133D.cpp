@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: chonkeob3.cpp
+File name: 1133D.cpp
 Code by : acident / lckintrovert
-Created since : 18/08/2023 ~~ 15:39:28
+Created since : 18/08/2023 ~~ 17:05:14
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -28,29 +28,37 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       1e6 + 10;
+int const maxn      =       2e5 + 10;
 int const INF       =       1e18;
  
 int n;
-int a[maxn] = {}, dp[maxn][3] = {};
+map<pi, int> mNeg, mPos;
+pi compute(int b, int a) {
+    a = max(a, -a); b = max(b, -b);
+    //d == b / a
+    int k = __gcd(a, b);
+    return mp(b/k, a/k);
+}
+int a[maxn] = {}, b[maxn] = {};
 void solve() {
     cin >> n;
-    int sum = 0;
     for(int i = 1; i <= n; i++) {
         cin >> a[i];
-        sum += a[i];
     }
-    // cerr << sum;}
-    dp[1][0] = 0;
-    dp[1][1] = a[1];
-    for(int i = 2; i <= n; i++) {
-        for(int j = 0; j <= 2; j++) dp[i][0] = max(dp[i][0], dp[i - 1][j]);
-        dp[i][1] = a[i] + dp[i - 1][0];
-        dp[i][2] = a[i] + dp[i - 1][1];
+    for(int i = 1; i <= n; i++) {
+        cin >> b[i];
+    }
+    int k = 0;
+    for(int i = 1; i <= n; i++) {
+        if(a[i] == 0 && b[i] != 0) continue;
+        if(a[i] == 0 && b[i] == 0) k++;
+        else if(a[i] * b[i] >= 0) mPos[compute(b[i], a[i])]++;
+        else mNeg[compute(b[i], a[i])]++;
     }
     int ans = 0;
-    for(int i = 0; i <= 2; i++) ans = max(ans, dp[n][i]);
-    cout << ans;
+    for(auto s : mPos) ans = max(ans, s.se);
+    for(auto s : mNeg) ans = max(ans, s.se);
+    cout << ans + k;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: cses_2163.cpp
+File name: 1860A.cpp
 Code by : acident / lckintrovert
-Created since : 31/08/2023 ~~ 12:27:12
+Created since : 24/08/2023 ~~ 21:35:30
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -23,62 +23,38 @@ using namespace std;
 #define YES                 cout << "YES\n";
 #define NO                  cout << "NO\n";
 #define ins                 insert
-#define coutdub(x)          cout << fixed << setprecision(x)
  
 typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
+int const mod       =       1e9 + 7;
+int const maxn      =       100;
+int const INF       =       1e18;
  
-int const maxn      =       2e5 + 10; 
-int n, k, N;
-int BIT[maxn] = {};
-
-void upd(int id) {
-	int p = id;
-	while(p <= N) {
-		BIT[p]--; 
-		p += p & (-p);
-	}
-}
-int query(int id) {
-	int res = 0, p = id;
-	while(p > 0) {
-		res += BIT[p];
-		p -= p & (-p);
-	}
-	return res;
-}
-int find(int u) {
-	int l = 1, r = N;
-	int mid, cur;
-	while(l < r) {
-		mid = (l + r) >> 1;
-		cur = query(mid);
-		if(cur >= u) r = mid;
-		else l = mid + 1;
-	}
-	return l;
-}
+int n, m;
+char x;
 void solve() {
-	cin >> n >> k;
-	N = n;
-	k--;
-	for (int i = 1; i <= n; i++) {
-		BIT[i] = i & -i;
-	}
-	int ans = k + 2, k_ = 1;
-	n++;
-	while (n > 0) {
-		n--;
-		if(n == 0) return;
-		k_ = (k_ + k + n) % n + 1;
-		ans = find(k_);
-		cout << ans << ' ';
-		upd(ans);
-	}
+    cin >> n >> m;
+    bool col[30][26] = {};
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j <= m; j++) {
+            cin >> x;
+            col[j][x - 'a'] = true;
+        }
+    }
+    int id = 3;
+    char com[4] = {'v', 'i', 'k', 'a'};
+    for(int j = m; j >= 1 && id >= 0; j--) {
+        if(col[j][com[id] - 'a']) id--;
+    }
+    // cerr << id << endl;
+    if(id < 0) YES
+    else NO
 }
 signed main() {
-	ios_base:: sync_with_stdio(0);
-	cin.tie(NULL); cout.tie(NULL);
-	solve();
+    ios_base:: sync_with_stdio(0);
+    cin.tie(NULL); cout.tie(NULL);
+    //File?
+    int tc; cin >> tc;
+    while(tc--) solve();
 }

@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: cses_2163.cpp
+File name: CF_977F.cpp
 Code by : acident / lckintrovert
-Created since : 31/08/2023 ~~ 12:27:12
+Created since : 31/08/2023 ~~ 14:45:31
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -28,57 +28,44 @@ using namespace std;
 typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
+int const mod       =       1e9 + 7;
+int const maxn      =       2e5 + 10;
+int const INF       =       1e18;
  
-int const maxn      =       2e5 + 10; 
-int n, k, N;
-int BIT[maxn] = {};
-
-void upd(int id) {
-	int p = id;
-	while(p <= N) {
-		BIT[p]--; 
-		p += p & (-p);
-	}
-}
-int query(int id) {
-	int res = 0, p = id;
-	while(p > 0) {
-		res += BIT[p];
-		p -= p & (-p);
-	}
-	return res;
-}
-int find(int u) {
-	int l = 1, r = N;
-	int mid, cur;
-	while(l < r) {
-		mid = (l + r) >> 1;
-		cur = query(mid);
-		if(cur >= u) r = mid;
-		else l = mid + 1;
-	}
-	return l;
-}
+int n, x;
+map<int, int> m, idx, pre;
+deque<int> q;
 void solve() {
-	cin >> n >> k;
-	N = n;
-	k--;
-	for (int i = 1; i <= n; i++) {
-		BIT[i] = i & -i;
-	}
-	int ans = k + 2, k_ = 1;
-	n++;
-	while (n > 0) {
-		n--;
-		if(n == 0) return;
-		k_ = (k_ + k + n) % n + 1;
-		ans = find(k_);
-		cout << ans << ' ';
-		upd(ans);
-	}
+    cin >> n;
+    pi ans = {0, 0};
+    for(int i = 1; i <= n; i++) {
+        cin >> x;
+        idx[x] = i;
+        if(m[x] != 0) m[x] = 1;
+        if(m[x - 1] + 1 > m[x]) {
+            m[x] = m[x - 1] + 1;
+            pre[i] = idx[x - 1];
+        }
+        ans = max(ans, mp(m[x], i));
+    }
+    cout << ans.fi << endl;
+    int st = ans.se;
+    while(ans.fi--) {
+        q.push_back(st);
+        st = pre[st];
+    }
+    while(!q.empty()) {
+        cout << q.back() << ' ';
+        q.pop_back();
+    }
 }
 signed main() {
-	ios_base:: sync_with_stdio(0);
-	cin.tie(NULL); cout.tie(NULL);
-	solve();
+    ios_base:: sync_with_stdio(0);
+    cin.tie(NULL); cout.tie(NULL);
+    //File?
+    solve();
 }
+
+/*A place to scribble thoughts
+
+*/

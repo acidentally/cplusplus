@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: Matching.cpp
+File name: vnoj_vdanger.cpp
 Code by : acident / lckintrovert
-Created since : 01/09/2023 ~~ 13:35:35
+Created since : 01/09/2023 ~~ 15:49:34
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -29,21 +29,42 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       3e5 + 10;
+int const maxn      =       200;
 int const INF       =       1e18;
+int const N         =       1e4 + 10;
  
-int n, cur;
-int a[30][30] = {};
-bool x;
+int n, m, x;
+int d[maxn][maxn] = {};
+int a[N]= {};
+void Floyd() {
+    for(int k = 1; k <= n; k++) {
+        for(int i = 1; i <= n; i++) {
+            for(int j = 1; j <= n; j++) {
+                if(d[i][j] > d[i][k] + d[k][j]) {
+                    d[i][j] = d[i][k] + d[k][j];
+                }
+            }
+        }
+    }
+}
 void solve() {
-    cin >> n;
+    cin >> n >> m;
+    for(int i = 1; i <= m; i++) {
+        cin >> a[i];
+    }
+    a[0] = 1; a[m + 1] = n;
     for(int i = 1; i <= n; i++) {
         for(int j = 1; j <= n; j++) {
-            cin >> x;
-            a[i][j] = (x << (n - j));
-            cout << a[i][j] << ' ';
-        } cout << endl;
+            cin >> d[i][j];
+        }
     }
+    Floyd();
+    int ans = 0;
+    for(int i = 0; i <= m; i++) {
+        // cerr << a[i] << ' ' << a[i + 1] << endl;
+        ans += d[a[i]][a[i + 1]];
+    }
+    cout << ans;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

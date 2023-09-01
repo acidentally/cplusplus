@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: Matching.cpp
+File name: sticks.cpp
 Code by : acident / lckintrovert
-Created since : 01/09/2023 ~~ 13:35:35
+Created since : 01/09/2023 ~~ 16:48:56
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -29,20 +29,13 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       3e5 + 10;
+int const maxn      =       1e5 + 10;
 int const INF       =       1e18;
  
-int n, cur;
-int a[30][30] = {};
-bool x;
+int a[4] = {};
 void solve() {
-    cin >> n;
-    for(int i = 1; i <= n; i++) {
-        for(int j = 1; j <= n; j++) {
-            cin >> x;
-            a[i][j] = (x << (n - j));
-            cout << a[i][j] << ' ';
-        } cout << endl;
+    for(int i = 0; i < 4; i++) {
+        cin >> a[i];
     }
 }
 signed main() {

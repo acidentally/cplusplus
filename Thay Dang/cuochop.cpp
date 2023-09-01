@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: Matching.cpp
+File name: cuochop.cpp
 Code by : acident / lckintrovert
-Created since : 01/09/2023 ~~ 13:35:35
+Created since : 01/09/2023 ~~ 15:38:11
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -29,21 +29,50 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       3e5 + 10;
-int const INF       =       1e18;
+int const maxn      =       200;
+int const INF       =       1e8;
  
-int n, cur;
-int a[30][30] = {};
-bool x;
+int n, m;
+int d[maxn][maxn] = {};
+void Floyd() {
+    for(int k = 1; k <= n; k++) {
+        for(int i = 1; i <= n; i++) {
+            for(int j = 1; j <= n; j++) {
+                if(d[i][j] > d[i][k] + d[k][j]) {
+                    d[i][j] = d[j][i] = d[i][k] + d[k][j];
+                }
+            }
+        }
+    }
+}
+
+int u, v, w;
+
 void solve() {
-    cin >> n;
+    cin >> n >> m;
     for(int i = 1; i <= n; i++) {
         for(int j = 1; j <= n; j++) {
-            cin >> x;
-            a[i][j] = (x << (n - j));
-            cout << a[i][j] << ' ';
-        } cout << endl;
+            d[i][j] = INF;
+        }
+        d[i][i] = 0;
     }
+    while(m--) {
+        cin >> u >> v >> w;
+        d[u][v] = d[v][u] = w;
+    }
+    Floyd();
+    pi ans = mp(1, INF);
+    for(int i = 1; i <= n; i++) {
+        int curAns = 0;
+        for(int j = 1; j <= n; j++) {
+            curAns = max(curAns, d[i][j]);
+        }
+        if(curAns < ans.se) {
+            ans = mp(i, curAns);
+        }
+    }
+    cout << ans.fi;
+    // cout << d[4][3];
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

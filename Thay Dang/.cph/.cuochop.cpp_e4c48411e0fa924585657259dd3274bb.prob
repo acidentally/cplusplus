@@ -1,0 +1,1 @@
+{"name":"Local: cuochop","url":"c:\\Users\\KIEN\\OneDrive\\Desktop\\cplusplus\\Thay Dang\\cuochop.cpp","tests":[{"id":1693557732454,"input":"5 7\n1 2 2\n1 3 4\n1 4 7\n1 5 12\n2 3 4\n2 4 2\n3 5 6","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\KIEN\\OneDrive\\Desktop\\cplusplus\\Thay Dang\\cuochop.cpp","group":"local","local":true}

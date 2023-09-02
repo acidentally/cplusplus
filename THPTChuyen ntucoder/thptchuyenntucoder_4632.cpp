@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: Matching.cpp
+File name: thptchuyenntucoder_4632.cpp
 Code by : acident / lckintrovert
-Created since : 02/09/2023 ~~ 14:25:36
+Created since : 01/09/2023 ~~ 17:08:49
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -29,18 +29,22 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       50;
-int const INF       =       1e18;
+int const maxn      =       1e5 + 10;
+int const INF       =       -1e15;
  
-int n;
-bool a[maxn][maxn] = {};
+int n, a, b, c, ans = INF;
 void solve() {
     cin >> n;
-    for(int i = 1; i <= n; i++) {
-        for(int j = 1; j <= n; j++) {
-            cin >> a[i];
-        }
+    n -= 2;
+    cin >> a >> b;
+    pi cur = mp(max(a, b), min(a, b));
+    while(n--) {
+        cin >> c;
+        ans = max(ans, cur.fi + cur.se - c);
+        cur.se = max(cur.se, c);
+        if(cur.se > cur.fi) swap(cur.se, cur.fi);
     }
+    cout << ans;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

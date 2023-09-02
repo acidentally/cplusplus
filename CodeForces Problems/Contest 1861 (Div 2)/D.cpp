@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: Matching.cpp
+File name: D.cpp
 Code by : acident / lckintrovert
-Created since : 02/09/2023 ~~ 14:25:36
+Created since : 01/09/2023 ~~ 22:10:20
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -23,32 +23,23 @@ using namespace std;
 #define YES                 cout << "YES\n";
 #define NO                  cout << "NO\n";
 #define ins                 insert
-#define coutdub(x)          cout << fixed << setprecision(x)
  
 typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       50;
-int const INF       =       1e18;
+int const maxn      =       2e5 + 10;
+int const INF       =       1e9 + 10;
  
-int n;
-bool a[maxn][maxn] = {};
+int n, x;
+int a[maxn] = {};
 void solve() {
     cin >> n;
-    for(int i = 1; i <= n; i++) {
-        for(int j = 1; j <= n; j++) {
-            cin >> a[i];
-        }
-    }
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
     //File?
-    solve();
+    int tc; cin >> tc;
+    while(tc--) solve();
 }
-
-/*A place to scribble thoughts
-
-*/

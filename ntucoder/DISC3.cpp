@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: testing.cpp
+File name: DISC3.cpp
 Code by : acident / lckintrovert
-Created since : 08/08/2023 ~~ 11:34:47
+Created since : 04/09/2023 ~~ 08:09:04
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -20,9 +20,10 @@ using namespace std;
 #define pf                  push_front
 #define all(a)              a.begin(), a.end()
 #define mp                  make_pair
-#define YES                 cout << "YES\n";
-#define NO                  cout << "NO\n";
+#define YES                 cout << "YES\n"
+#define NO                  cout << "NO\n"
 #define ins                 insert
+#define coutdub(x)          cout << fixed << setprecision(x)
  
 typedef vector<int>         vi;
 typedef pair<int, int>      pi;
@@ -31,23 +32,28 @@ int const mod       =       1e9 + 7;
 int const maxn      =       1e5 + 10;
 int const INF       =       1e18;
  
-int n;
-string a[51], b[51];
+int BIT[maxn] = {};
+int query(int k) {
+    int res = 0;
+    while(k > 0) {
+        res += BIT[k];
+        k -= k & -k;
+    }
+    return res;
+}
+void upd(int k) {
+    while(k <= n) {
+        //BIT[k] manipulation
+        k += k & -k;
+    }
+}
+
+int n, q, u;
 void solve() {
-    for(int i = 1; i <= 50; i++) {
-        cin >> a[i];
+    cin >> n >> q;
+    while(q--) {
+        cin >> u;
     }
-    string s; cin >> s;
-    for(int i = 1; i <= 50; i++) {
-        cin >> b[i];
-    }
-    for(int i = 1; i <= 50; i++) {
-        cerr << a[i] << ' ' << b[i] << endl;
-        if(a[i] != b[i]) {
-            cout << "Sai test " << i << ": phải là " << a[i] << endl;
-        }
-    }
-    cerr << s;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
@@ -55,3 +61,7 @@ signed main() {
     //File?
     solve();
 }
+
+/*A place to scribble thoughts
+
+*/

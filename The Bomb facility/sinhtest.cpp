@@ -39,10 +39,197 @@ void solve() {
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    freopen("themaintest.out", "w", stdout);
-    solve();
+    freopen("out.out", "w", stdout);
+    mt19937_64 res(time(0));
+    cout << 50 << ' ' << 50 << endl;
+    srand(time(NULL)); 
+    for(int i = 1; i <= 50; i++) {
+        int x = res();
+        cout << ((x & 1) ? '(' : ')');
+    } cout << endl;
+    for(int i = 1; i <= 50; i++) {
+        int x = rand() % (40 - 1 + 1) + 1;
+        int mor = rand() % (10 - 1 + 1) + 1;
+        cout << x << ' ' << x + mor << endl;
+    }
 }
 
 /*A place to scribble thoughts
 
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
+NO
 */

@@ -50,7 +50,7 @@ void upd(int k) {
 
 int n, q, u;
 void solve() {
-    cin >> n >> q;
+    cin >> n >> q
     while(q--) {
         cin >> u;
     }

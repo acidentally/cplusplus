@@ -32,9 +32,43 @@ int const mod       =       1e9 + 7;
 int const maxn      =       1e5 + 10;
 int const INF       =       1e18;
  
+int SZ, BIT[maxn] = {}, BITval[maxn] = {};
+pi query(int k) {
+    pi res = {0ll, 0ll};
+    while(k > 0) {
+        res.fi += BIT[k];
+        res.se += BITval[k];
+        k -= k & -k;
+    }
+    return res;
+}
+void upd(int k, int val) {
+    while(k <= SZ) {
+        BITval[k] += val;
+        BIT[k]++;
+        k += k & -k;
+    }
+}
 
+int n, a[maxn] = {}, ans = 0;
+char x;
+vi a_;
 void solve() {
-    
+    cin >> n;
+    for(int i = 1; i <= n; i++) {
+        cin >> x;
+        a[i] = (x == '(') ? 1 : -1;
+        a[i] += a[i - 1];
+        a_.pb(a[i]);
+        ans += (n - i) * a[i];
+    }
+    sort(all(a_));
+    a_.erase(unique(all(a_)), a_.end());
+    for(int i = n; i >= 1; i--) {
+        int place = lower_bound(all(a_), a[i]) - a_.begin() + 1;
+        auto [cnt, sum] = query(place);
+
+    }   
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

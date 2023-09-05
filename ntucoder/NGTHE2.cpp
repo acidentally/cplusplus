@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: DISC3.cpp
+File name: NGTHE2.cpp
 Code by : acident / lckintrovert
-Created since : 04/09/2023 ~~ 08:09:04
+Created since : 05/09/2023 ~~ 08:39:33
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -30,9 +30,11 @@ typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
 int const maxn      =       1e5 + 10;
-int const INF       =       1e18;
+int const INF       =       1e10 + 10;
  
+int n, a[maxn] = {}, ans = 0, SZ;
 int BIT[maxn] = {};
+vi a_;
 int query(int k) {
     int res = 0;
     while(k > 0) {
@@ -42,19 +44,27 @@ int query(int k) {
     return res;
 }
 void upd(int k) {
-    while(k <= n) {
-        //BIT[k] manipulation
+    while(k <= SZ) {
+        BIT[k]++;
         k += k & -k;
     }
 }
 
-int n, q, u;
 void solve() {
-    cin >> n >> q;
-    for(int i = 1; i <= n; i++) BIT[i] = i & -i;
-    while(q--) {
-        cin >> u;
+    cin >> n;
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        a_.pb(a[i]);
     }
+    sort(all(a_));
+    a_.erase(unique(all(a_)), a_.end());
+    SZ = a_.size();
+    for(int i = n; i >= 1; i--) {
+        int place = lower_bound(all(a_), a[i]) - a_.begin() + 1;
+        ans += query(place - 1);
+        upd(place);
+    }
+    cout << ans;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

@@ -1,0 +1,1 @@
+{"name":"Local: tictac","url":"c:\\Users\\KIEN\\OneDrive\\Desktop\\cplusplus\\Buoi dau tien\\tictac.cpp","tests":[{"id":1693811344492,"input":"3\nAAA\n...\nBBB","output":"A"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\KIEN\\OneDrive\\Desktop\\cplusplus\\Buoi dau tien\\tictac.cpp","group":"local","local":true}

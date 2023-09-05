@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: DISC3.cpp
+File name: Bai2.cpp
 Code by : acident / lckintrovert
-Created since : 04/09/2023 ~~ 08:09:04
+Created since : 04/09/2023 ~~ 13:45:14
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -29,37 +29,28 @@ typedef vector<int>         vi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       1e5 + 10;
+int const maxn      =       3e5 + 10;
 int const INF       =       1e18;
  
-int BIT[maxn] = {};
-int query(int k) {
-    int res = 0;
-    while(k > 0) {
-        res += BIT[k];
-        k -= k & -k;
-    }
-    return res;
-}
-void upd(int k) {
-    while(k <= n) {
-        //BIT[k] manipulation
-        k += k & -k;
-    }
-}
-
-int n, q, u;
+int n, x;
+vi a;
 void solve() {
-    cin >> n >> q;
-    for(int i = 1; i <= n; i++) BIT[i] = i & -i;
-    while(q--) {
-        cin >> u;
+    cin >> n;
+    for(int i = 1; i <= n; i++) {
+        cin >> x;
+        a.pb(x);
     }
+    int d = n;
+    for(int i = n - 1; i >= 0; i--) {
+        if(d == a[i]) d--;
+    }
+    cout << d;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    //File?
+    freopen("xs.inp", "r", stdin);
+    freopen("xs.out", "w", stdout);
     solve();
 }
 

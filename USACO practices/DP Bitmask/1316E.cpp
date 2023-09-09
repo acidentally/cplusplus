@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: DISC3.cpp
+File name: 1316E.cpp
 Code by : acident / lckintrovert
-Created since : 06/09/2023 ~~ 11:49:05
+Created since : 09/09/2023 ~~ 09:52:39
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -24,6 +24,10 @@ using namespace std;
 #define NO                  cout << "NO\n"
 #define ins                 insert
 #define coutdub(x)          cout << fixed << setprecision(x)
+#define cerrdub(x)          cerr << fixed << setprecision(x)
+ 
+template<class T1, class T2> void maximize(T1& a, T2 b) {a = max(a, b);}
+template<class T1, class T2> void minimize(T1& a, T2 b) {a = min(a, b);}
  
 typedef vector<int>         vi;
 typedef pair<int, int>      pi;
@@ -32,37 +36,44 @@ int const mod       =       1e9 + 7;
 int const maxn      =       1e5 + 10;
 int const INF       =       1e18;
  
-int BIT[maxn] = {}, d[maxn] = {}, SZ ;
-int query(int k) {
-    int res = 0;
-    while(k > 0) {
-        res += BIT[k];
-        k -= k & -k;
-    } return res;
-}
-void upd(int k) {
-    while(k <= SZ) {
-        BIT[k]--;
-        k += k & -k;
-    }
-}
-int n, q, u;
+int n, p, k, x;
+int s[maxn][10] = {};
+int dp[maxn][200] = {};
+vector<pi> a = {};
 void solve() {
-    cin >> n >> q;
+    cin >> n >> p >> k;
     for(int i = 1; i <= n; i++) {
-        d[n - i + 1] = i;
+        cin >> x;
+        a.pb(mp(~x, i));
     }
-    for(int i = 1; i <= n + q; i++) {
-        BIT[i] = i & -i;
+    a.pb(mp(-INF, -INF));
+    sort(all(a));
+    for(int i = 1; i <= n; i++) {
+        for(int j = 0; j < p; j++) {
+            cin >> s[i][j];
+        }
     }
-    SZ = n + q;
-    int cur = n + 1;
-    while(q--) {
-        cin >> u;
-        cout << n - query(d[u]) << ' ';
-        upd(d[u]);
-        d[u] = cur++;
+    dp[0][0] = 0;
+    for(int i = 1; i < a.size(); i++) {
+ 
+        int idx = a[i].se;
+        int val = ~a[i].fi;
+        
+        for(int mask = 0; mask < (1 << p); mask++) {
+ 
+            for(int j = 0; j < p; j++) {
+                if(mask & (1 << j)) {
+                    maximize(dp[i][mask], dp[i - 1][mask ^ (1 << j)] + s[idx][j]);
+                }
+            }
+ 
+            int aud = i - __builtin_popcount(mask);
+            if(aud <= 0) {}
+            else if(aud > k) maximize(dp[i][mask], dp[i - 1][mask]);
+            else maximize(dp[i][mask], dp[i - 1][mask] + val);
+        }
     }
+    cout << dp[n][(1 << p) - 1];
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
@@ -70,7 +81,6 @@ signed main() {
     //File?
     solve();
 }
-
 /*A place to scribble thoughts
-
+ 
 */

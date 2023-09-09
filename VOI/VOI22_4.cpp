@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: DAYNGO3.cpp
+File name: VOI22_4.cpp
 Code by : acident / lckintrovert
-Created since : 07/09/2023 ~~ 11:55:12
+Created since : 09/09/2023 ~~ 09:47:32
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -24,44 +24,29 @@ using namespace std;
 #define NO                  cout << "NO\n"
 #define ins                 insert
 #define coutdub(x)          cout << fixed << setprecision(x)
+#define cerrdub(x)          cerr << fixed << setprecision(x)
  
+template<class T1, class T2> void maximize(T1& a, T2 b) {a = max(a, b);}
+template<class T1, class T2> void minimize(T1& a, T2 b) {a = min(a, b);}
+ 
+typedef vector<int>         vi;
 typedef pair<int, int>      pi;
-int const maxn      =       2e5 + 10;
-
-pi BIT[maxn] = {};
-pi query(int k) {
-    pi res = {0, 0};
-    while(k > 0) {
-        res.fi += BIT[k].fi;
-        res.se += BIT[k].se;
-        k -= k & -k;
-    }
-    return res;
-}
-void upd(int k) {
-    int p = k;
-    while(k <= maxn) {
-        BIT[k].fi++;
-        BIT[k].se += p;
-        k += k & -k;
-    }
-}
-int d = (int)1e5 + 5, ans;
-char c;
-pi cur;
+typedef pair<int, pi>       pii;
+int const mod       =       1e9 + 7;
+int const maxn      =       1e6 + 10;
+int const INF       =       1e18;
+ 
+int n, u, v, w;
+vector<pi> a;
+map<pi, int> m;
 void solve() {
-    cin >> ans;
-    ans = 0;
-    upd(d);
-    while(cin >> c) {
-        if(c == '(') d++;
-        else d--;
-
-        cur = query(d - 1);
-        ans += cur.fi * d - cur.se;
-        upd(d);
+    cin >> n;
+    for(int i = 1; i <= n; i++) {
+        cin >> u >> v >> w;
+        a.pb(mp(v, ~u));
+        m[mp(u, v)] = w;
     }
-    cout << ans;
+    int ans = 0;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

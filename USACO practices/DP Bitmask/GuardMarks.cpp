@@ -34,37 +34,35 @@ typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
 int const maxn      =       1e5 + 10;
-int const INF       =       1e10;
+int const INF       =       1e9 + 10;
  
 //Problem link : http://www.usaco.org/index.php?page=viewproblem2&cpid=494
 int cows, height;
 int he, we, str;
 vector<pii> a;
+int dp[(1 << 20) + 10] = {}, h[(1 << 20) + 10] = {};
 void solve() {
     cin >> cows >> height;
     for(int i = 1; i <= cows; i++) {
         cin >> he >> we >> str;
-        a.pb(mp(str, mp(~we, he)));
+        a.pb(mp(str, mp(we, he)));
     }
-    sort(all(a), greater<pii>());
     int ans = -1;
+    dp[0] = INF;
     for(int mask = 1; mask < (1 << cows); mask++) {
-        he = 0, str = INF;
-        bool b = 1;
-        for(int i = 0; (i < cows) && b; i++) {
-            if((mask & (1 << i))) {
-                if(str >= (~a[i].se.fi)) {
-                    str = min(str - (~a[i].se.fi), a[i].fi);
-                    he += a[i].se.se;
-                }
-                else b = 0;
+        dp[mask] = -1;
+        for(int i = 0; i < cows; i++) {
+            if(mask & (1 << i)) {
+                h[mask] += a[i].se.se;
+                if(dp[mask ^ (1 << i)] >= a[i].se.fi) 
+                    maximize(dp[mask], min(dp[mask ^ (1 << i)] - a[i].se.fi, a[i].fi));
             }
         }
-        if(!b) continue;
-        else if(he >= height) ans = max(ans, str);
+        if(h[mask] >= height) ans = max(ans, dp[mask]);
     }
     if(ans == -1) cout << "Mark is too tall";
     else cout << ans;
+
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

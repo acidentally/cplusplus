@@ -8,7 +8,7 @@ Literally the worst cp-er ever
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int 			long lon
+#define int 			long long
 #define uint 			unsigned long long
 #define fi				first
 #define se 				second

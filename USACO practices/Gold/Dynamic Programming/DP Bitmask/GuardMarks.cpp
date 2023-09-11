@@ -1,4 +1,4 @@
-/*
+ /*
 Good luck for those who are trying your best
 May the most glorious victory come
 File name: GuardMarks.cpp

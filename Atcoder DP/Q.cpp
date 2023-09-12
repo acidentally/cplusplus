@@ -42,28 +42,25 @@ int const INF       =       1e18;
  
 int n;
 int h[maxn] = {}, a[maxn] = {};
-vector<pi> b;
+int B[maxn] = {}, b[maxn] = {};
 void solve() {
     cin >> n;
-    for(int i = 0; i < n; i++) {
+    for(int i = 1; i <= n; i++) {
         cin >> h[i];
     }
-    for(int i = 0; i < n; i++) {
+    for(int i = 1; i <= n; i++) {
         cin >> a[i];
     }
-    int sz = 0;
-    for(int i = 0; i < n; i++) {
-        int nth = lower_bound(all(b), h[i]) - b.begin();
-        if(nth > sz) {
-            b.pb(mp(h[i], a[i]));
-            sz = nth;
-        }
-        else {
-            b[nth] = mp(h[i], b[nth].se + a[i]);
-        }
+    int sz = 1;
+    for(int i = 1; i <= n; i++) {
+        int nth = upper_bound(b + 1, b + sz + 1, h[i]) - b;
+        cerr << nth << ' ' << sz << endl;
+        b[nth] = h[i];
+        B[nth] += a[i];
+        maximize(sz, nth);
     }
-    int ans = 0;
-    for(auto s : b) maximize(ans, s.se);
+    int ans = 0;    
+    for(int i = 0; i < sz; i++) maximize(ans, B[i]);
     cout << ans;
 }
 signed main() {

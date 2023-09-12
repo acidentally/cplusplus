@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: 1869E.cpp
+File name: 1867D.cpp
 Code by : acident / lckintrovert
-Created since : 11/09/2023 ~~ 20:36:35
+Created since : 11/09/2023 ~~ 22:31:59
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -37,45 +37,46 @@ typedef vector<vi>          vvi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       1e5 + 10 //VERY BIG NUMBER BTW;
+int const maxn      =       1e5 + 10;
 int const INF       =       1e18;
  
-
-struct DSU {
-    vi p;
-    DSU() : p(maxn) {}
-    void createDSU(int l) {
-        for(int i = 1; i <= l; i++) p[i] = i;
+int n, k, x, tplt;
+bool vis[maxn] = {}, preVis[maxn] = {};
+vi a[maxn] = {};
+stack<int> st;
+bool found = 0;
+void dfs(int v, int p = -1) {
+    if(vis[v] && !preVis[v]) {
+        found = 1;
     }
-    int find(int v) {
-        if(v == p[v]) return v;
-        return p[v] = find(p[v]);
+    vis[v] = 1;
+    st.push(v);
+    for(auto s : a[v]) {
+        if(s == p) continue;
+        dfs(s, v);
     }
-    void make(int i) {
-        p[i] = i;
-    }
-    void connect(int u, int v) {
-        u = find(u); v = find(v);
-        p[u] = v;
-    }
-} g1;
-int n, m, x, q, u, v;
-
+}
 void solve() {
-    cin >> n >> m >> q;
-    g1.createDSU(n + 10);
-    vi a[m + 10] = {};
-    int mapp[n + 10] = {};
+    cin >> n >> k;
+    found = 0;
+    memset(vis, 0, n + 10);
+    memset(preVis, 0, n + 10);
+    for(int i = 1; i <= n; i++) a[i].clear();
     for(int i = 1; i <= n; i++) {
-        cin >> x;
-        a[x].pb(i);
-        mapp[i] = x;
+        cin >> x;    
+        a[i].pb(x);
     }
-    for(int i = 1; i <= q; i++) {
-        cin >> u >> v;
-        g1.connect(u, v);
-        
+    tplt = 0;
+    for(int i = 1; i <= n && !found; i++) {
+        if(!vis[i]) dfs(i);
+        tplt++;
+        while(!st.empty()) {
+            preVis[st.top()] = 1;
+            st.pop();
+        }
     }
+    if(!found && tplt > 1) NO;
+    else YES;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

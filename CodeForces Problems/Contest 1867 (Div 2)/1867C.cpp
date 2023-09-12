@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: 1869E.cpp
+File name: 1867C.cpp
 Code by : acident / lckintrovert
-Created since : 11/09/2023 ~~ 20:36:35
+Created since : 11/09/2023 ~~ 22:22:30
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -37,44 +37,24 @@ typedef vector<vi>          vvi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       1e5 + 10 //VERY BIG NUMBER BTW;
+int const maxn      =       1e5 + 10;
 int const INF       =       1e18;
  
-
-struct DSU {
-    vi p;
-    DSU() : p(maxn) {}
-    void createDSU(int l) {
-        for(int i = 1; i <= l; i++) p[i] = i;
-    }
-    int find(int v) {
-        if(v == p[v]) return v;
-        return p[v] = find(p[v]);
-    }
-    void make(int i) {
-        p[i] = i;
-    }
-    void connect(int u, int v) {
-        u = find(u); v = find(v);
-        p[u] = v;
-    }
-} g1;
-int n, m, x, q, u, v;
-
+int n, x;
 void solve() {
-    cin >> n >> m >> q;
-    g1.createDSU(n + 10);
-    vi a[m + 10] = {};
-    int mapp[n + 10] = {};
-    for(int i = 1; i <= n; i++) {
+    cin >> n;
+    int d = 0;
+    for(int i = 0; i < n; i++) {
         cin >> x;
-        a[x].pb(i);
-        mapp[i] = x;
+        if(x == d) d++;
     }
-    for(int i = 1; i <= q; i++) {
-        cin >> u >> v;
-        g1.connect(u, v);
-        
+    int cnt = 0;
+    while(d >= 0 && cnt <= 2 *n + 1) {
+        if(d == -2) exit(0);
+        cnt++;
+        cout << d << endl;
+        cout.flush();
+        cin >> d;
     }
 }
 signed main() {

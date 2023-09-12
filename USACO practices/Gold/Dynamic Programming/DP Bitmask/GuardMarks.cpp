@@ -62,7 +62,6 @@ void solve() {
     }
     if(ans == -1) cout << "Mark is too tall";
     else cout << ans;
-
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

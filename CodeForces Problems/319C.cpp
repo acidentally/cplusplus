@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: coci13_5.cpp
+File name: 319C.cpp
 Code by : acident / lckintrovert
-Created since : 20/09/2023 ~~ 12:27:56
+Created since : 20/09/2023 ~~ 17:07:00
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -11,7 +11,7 @@ using namespace std;
 
 #define int                  long long
 #define uint                 unsigned long long
-#define dub                  double
+#define dub                  long double
 #define fi                   first
 #define se                   second
 #define endl                 '\n'
@@ -40,26 +40,55 @@ typedef vector<pi>           vp;
 const int mod       =        1e9 + 7;
 const int maxn      =        1e5 + 10;
 const int INF       =        1e18;
+struct line {
+    int A, B;
+    line() = default;
+    line(int a, int b) : A(a), B(b) {};
+    int value(int x) {
+        return A * x + B;
+    }
+};
+bool ok(line l1, line l2, line l3) {
+    return (dub)(l3.B - l1.B) / (l1.A - l3.A) <= (dub) (l2.B - l1.B) / (l1.A - l2.A);
+}
+struct CHT {
+    vector<line> lines;
+    void addLine(line l) {
+        while(lines.size() > 1 && ok(lines[lines.size() - 2], lines.back(), l)) {
+            lines.pop_back();
+        }
+        lines.pb(l);
+    }
+    int query(int x) {
+        int ans = 1e18;
+        int l = 0, r = lines.size() - 1;
+        while(l <= r) {
+            int mid = l + r >> 1;
+            int cur = lines[mid].value(x);
+            minimize(ans, cur);
+            if(mid != lines.size() - 1 && cur > lines[mid + 1].value(x)) {
+                l = mid + 1;
+            } else if(r != 0 && cur > lines[mid - 1].value(x)) {
+                r = mid - 1;
+            } else return ans;
+        } return ans;
+    }
+};
 
-int n, a, b, c, ans = 0;
-map<pi, int> m;
+int n;
+int a[maxn], b[maxn] = {};
 inline void solve() {
     cin >> n;
-    for(int i = 0; i < n; i++) {
-        cin >> a >> b >> c;
-        if(!a && !b) continue;
-        if(a == 0) m[{0, 1}]++;
-        else if(b == 0) m[{1, 0}]++;
-        else m[{a / __gcd(a, b), b / __gcd(a, b)}]++;
+    for(int i = 1; i <= n; i++) cin >> a[i];
+    for(int i = 1; i <= n; i++) cin >> b[i];
+    CHT Hulls;
+    Hulls.addLine(line(b[1], 0));
+    int curdp = 0;
+    for(int i = 1; i <= n; i++) {
+        curdp = Hulls.query(a[i]);
+        Hulls.addLine(line(b[i], curdp));
     }
-    int sum = 0, sqSum = 0, temp;
-    for(auto s : m) {
-        temp = ((((sum * sum) % mod) - (sqSum % mod)) * 500000004ll) % mod;
-        (ans += (s.se % mod) * temp) %= mod;
-        (sqSum += s.se * s.se) %= mod;
-        (sum += s.se) %= mod;
-    }
-    cout << (ans + (mod << 10)) % mod;
+    cout << Hulls.query(a[n]);
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

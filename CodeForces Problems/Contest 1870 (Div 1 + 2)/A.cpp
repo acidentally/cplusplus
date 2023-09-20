@@ -3,12 +3,12 @@ Good luck for those who are trying your best
 May the most glorious victory come
 File name: A.cpp
 Code by : acident / lckintrovert
-Created since : 18/09/2023 ~~ 21:10:03
+Created since : 18/09/2023 ~~ 21:35:32
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
 using namespace std;
-
+ 
 #define int                 long long
 #define uint                unsigned long long
 #define dub                 double
@@ -37,18 +37,30 @@ typedef vector<vi>          vvi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
 int const mod       =       1e9 + 7;
-int const maxn      =       1e5 + 10;
+int const maxn      =       300;
 int const INF       =       1e18;
 
-
+int n, k, x;
 inline void solve() {
-    
+    cin >> n >> k >> x;
+    if(k > n || x < k - 1) {
+        cout << -1 << endl;
+        return;
+    }
+    int ans = 0;
+    for(int i = 0; i <= k - 1; i++) {
+        ans += i;
+    }
+    if(x == k) x = k - 1;
+    for(int i = k + 1; i <= n; i++) ans += x;
+    cout << ans << endl;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
     //File?
-    solve();
+    int tc; cin >> tc;
+    while(tc--) solve();
 }
 
 /*A place to scribble thoughts

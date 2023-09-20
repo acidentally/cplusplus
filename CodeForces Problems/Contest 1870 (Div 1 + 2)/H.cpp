@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: D.cpp
+File name: H.cpp
 Code by : acident / lckintrovert
-Created since : 18/09/2023 ~~ 23:06:12
+Created since : 19/09/2023 ~~ 13:46:49
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -32,36 +32,28 @@ template<class T1, class T2> bool maximize(T1& a, T2 b) {if(b > a) {a = b; retur
 template<class T1, class T2> bool minimize(T1& a, T2 b) {if(b < a) {a = b; return 1;} return 0;}
 template<class T1> T1 abs(T1 a) {return max(a, -a);}
 
-typedef vector<int>         vi;
-typedef vector<vi>          vvi;
 typedef pair<int, int>      pi;
 typedef pair<int, pi>       pii;
+typedef vector<int>         vi;
+typedef vector<vi>          vvi;
+typedef vector<pi>          vp;
 int const mod       =       1e9 + 7;
 int const maxn      =       2e5 + 10;
 int const INF       =       1e18;
 
-int n, k, x, c[maxn] = {};
-int remain, count;
-vector<pi> a;
+int n, m, q, u, v, c;
+char x;
+vector<pi> a[maxn] = {};
 inline void solve() {
-    cin >> n;
-    pi ans = mp(0, 0);
-    for(int i = 1; i <= n; i++) {
-        cin >> c[i];
-        minimize(ans, mp(c[i], ~i));
+    cin >> n >> m >> q;
+    while(m--) {
+        cin >> u >> v >> c;
+        a[u].pb(mp(v, c));
+        a[v].pb(mp(u, c));
     }
-    cin >> k;
-    remain = k % (ans.fi);
-    count = k / ans.fi;
-    k %= ans.fi;
-    priority_queue<pi, vector<pi>, greater<pi> > pq;
-    for(int i = ans.se + 1; i <= n; i++) {
-        pq.push(mp(c[i], i));
+    while(q--) {
+        cin >> x >> u;
     }
-    while(k >= qp.top().fi) {
-        
-    }
-    
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

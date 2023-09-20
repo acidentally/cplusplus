@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: sinhtest.cpp
+File name: dgraph.cpp
 Code by : acident / lckintrovert
-Created since : 31/08/2023 ~~ 17:18:14
+Created since : 17/08/2023 ~~ 14:48:25
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -23,7 +23,6 @@ using namespace std;
 #define YES                 cout << "YES\n";
 #define NO                  cout << "NO\n";
 #define ins                 insert
-#define coutdub(x)          cout << fixed << setprecision(x)
  
 typedef vector<int>         vi;
 typedef pair<int, int>      pi;
@@ -32,204 +31,41 @@ int const mod       =       1e9 + 7;
 int const maxn      =       1e5 + 10;
 int const INF       =       1e18;
  
-
+int n, m, u, v, idx[maxn] = {};
+vi topo, a[maxn] = {};
+int out[maxn] = {}, in[maxn] = {};
+priority_queue<int> vertex;
 void solve() {
-    cout << 5;   
+    cin >> n >> m;
+    while(m--) {
+        cin >> u >> v;
+        a[u].pb(v);
+        out[u]++;
+        in[v]++;
+    }
+    for(int i = 1; i <= n; i++) {
+        if(in[i] == 0) vertex.push(i);
+        // sort(all(a[i]));
+    }
+    while(!vertex.empty()) {
+        u = vertex.top();
+        vertex.pop();
+        topo.pb(u);
+        for(auto s : a[u]) {
+            in[s]--;
+            if(in[s] == 0) vertex.push(s);
+        }
+    }
+    int cnt = 1;
+    for(auto s : topo) {
+        idx[s] = cnt++;
+    }
+    for(int i = 1; i <= n; i++) {
+        cout << idx[i] << ' ';
+    }
 }
 signed main() {
     ios_base:: sync_with_stdio(0);
     cin.tie(NULL); cout.tie(NULL);
-    freopen("out.out", "w", stdout);
-    mt19937_64 res(time(0));
-    cout << 50 << ' ' << 50 << endl;
-    srand(time(NULL)); 
-    for(int i = 1; i <= 50; i++) {
-        int x = res();
-        cout << ((x & 1) ? '(' : ')');
-    } cout << endl;
-    for(int i = 1; i <= 50; i++) {
-        int x = rand() % (40 - 1 + 1) + 1;
-        int mor = rand() % (10 - 1 + 1) + 1;
-        cout << x << ' ' << x + mor << endl;
-    }
-}
-
-/*A place to scribble thoughts
-
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-NO
-*/
+    solve();
+} 

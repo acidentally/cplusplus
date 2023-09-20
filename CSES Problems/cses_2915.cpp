@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: sinhtest.cpp
+File name: cses_2915.cpp
 Code by : acident / lckintrovert
-Created since : 20/09/2023 ~~ 20:41:44
+Created since : 20/09/2023 ~~ 20:42:20
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -38,12 +38,23 @@ typedef vector<int>          vi;
 typedef vector<vi>           vvi;
 typedef vector<pi>           vp;
 const int mod       =        1e9 + 7;
-const int maxn      =        1e5 + 10;
+const int maxn      =        2e5 + 10;
 const int INF       =        1e18;
 
+struct point {
+    int x, y;
+    point() : x(0), y(0) {}
+    point(int x_, int y_) : x(x_), y(y_) {}
+};
 
+cp
+int n;
 inline void solve() {
-    
+    cin >> n;
+    vector<point> a(n);
+    for(point &s : a) {
+        cin >> s.x >> s.y;
+    }
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

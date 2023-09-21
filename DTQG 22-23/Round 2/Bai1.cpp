@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: cses_2915.cpp
+File name: Bai1.cpp
 Code by : acident / lckintrovert
-Created since : 20/09/2023 ~~ 20:42:20
+Created since : 20/09/2023 ~~ 21:57:58
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -39,31 +39,35 @@ typedef vector<vi>           vvi;
 typedef vector<pi>           vp;
 const int mod       =        1e9 + 7;
 const int maxn      =        2e5 + 10;
-const int INF       =        1e18;
+const int INF       =        1e10;
 
-struct point {
-    int x, y;
-    point() : x(0), y(0) {}
-    point(int x_, int y_) : x(x_), y(y_) {}
-};
-
-vi ConvexHull(vector<point> p, int n) {
-
-}
-
-int n;
+int n, k, sum = 0, ans = 1e9;
+int a[maxn] = {};
 inline void solve() {
-    cin >> n;
-    vector<point> a(n);
-    for(point &s : a) {
-        cin >> s.x >> s.y;
+    cin >> n >> k;
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        sum += a[i];
+        minimize(ans, a[i]);
     }
-    sort(all(a), [](const point &a, const point &b) {
-        if(a.x == b.x) return a.y < b.y;
-        return a.x < b.x;
-    });
-
-    vi hulls = ConvexHull(a, n);
+    // if(k == 2) {cout << 6; return;}
+    if(k == 1) {cout << sum; return;}
+    if(k == n) {cout << ans; return;}   
+    int dp[n + 10][k + 10] = {};
+    for(int i = 1; i <= n; i++) {
+        dp[i][0] = dp[i - 1][0];
+        int mini = a[i];
+        for(int j = 1; j <= k; j++) {
+            maximize(dp[i][0], dp[i - 1][j]);
+            if(i - j >= 0) {
+                minimize(mini, a[i - j + 1]);
+                maximize(dp[i][j], mini + dp[i - j + 1][0]);
+            }
+        }
+    }
+    int ans = 0;
+    for(int i = 0; i <= k; i++) maximize(ans, dp[n][i]);
+    cout << ans;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

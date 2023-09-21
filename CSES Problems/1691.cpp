@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: cses_2915.cpp
+File name: 1691.cpp
 Code by : acident / lckintrovert
-Created since : 20/09/2023 ~~ 20:42:20
+Created since : 21/09/2023 ~~ 16:22:53
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -38,32 +38,44 @@ typedef vector<int>          vi;
 typedef vector<vi>           vvi;
 typedef vector<pi>           vp;
 const int mod       =        1e9 + 7;
-const int maxn      =        2e5 + 10;
+const int maxn      =        1e5 + 10;
 const int INF       =        1e18;
 
-struct point {
-    int x, y;
-    point() : x(0), y(0) {}
-    point(int x_, int y_) : x(x_), y(y_) {}
-};
-
-vi ConvexHull(vector<point> p, int n) {
-
-}
-
-int n;
-inline void solve() {
-    cin >> n;
-    vector<point> a(n);
-    for(point &s : a) {
-        cin >> s.x >> s.y;
+int n, m, u, v;
+vector<pi> e, a[maxn] = {};
+vi ans;
+bool vis[maxn << 1 + 10] = {};
+void DFS(int k) {
+    while(!a[k].empty()) {
+        if(!vis[a[k].back().se]) {
+            vis[a[k].back().se] = 1;
+            int temp = a[k].back().fi;
+            a[k].pop_back();
+            DFS(temp);
+        }
+        else a[k].pop_back();
     }
-    sort(all(a), [](const point &a, const point &b) {
-        if(a.x == b.x) return a.y < b.y;
-        return a.x < b.x;
-    });
-
-    vi hulls = ConvexHull(a, n);
+    ans.pb(k);
+}
+inline void solve() {
+    cin >> n >> m;
+    for(int i = 0; i < m; i++) {
+        cin >> u >> v;
+        a[u].pb(mp(v, i));
+        a[v].pb(mp(u, i));
+    }
+    for(int i = 1; i <= n; i++) {
+        if(a[i].size() & 1) {
+            cout << "IMPOSSIBLE";
+            exit(0);
+        }
+    }
+    DFS(1);
+    if(ans.size() != m + 1) {
+        cout << "IMPOSSIBLE";
+        exit(0);
+    }
+    for(auto s : ans) cout << s << ' ';
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

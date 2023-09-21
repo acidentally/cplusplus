@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: cses_2915.cpp
+File name: TIEPTHI.cpp
 Code by : acident / lckintrovert
-Created since : 20/09/2023 ~~ 20:42:20
+Created since : 21/09/2023 ~~ 17:15:42
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -38,32 +38,29 @@ typedef vector<int>          vi;
 typedef vector<vi>           vvi;
 typedef vector<pi>           vp;
 const int mod       =        1e9 + 7;
-const int maxn      =        2e5 + 10;
-const int INF       =        1e18;
+const int maxn      =        1e5 + 10;
+const int INF       =        1e15;
 
-struct point {
-    int x, y;
-    point() : x(0), y(0) {}
-    point(int x_, int y_) : x(x_), y(y_) {}
-};
-
-vi ConvexHull(vector<point> p, int n) {
-
-}
-
-int n;
+int n, pre, u, v, cur = 0;
+map<int, int> m;
+vector<pi> a;
 inline void solve() {
     cin >> n;
-    vector<point> a(n);
-    for(point &s : a) {
-        cin >> s.x >> s.y;
+    for(int i = 0; i < n; i++) {
+        cin >> u >> v;
+        m[u]++; m[v]--;
     }
-    sort(all(a), [](const point &a, const point &b) {
-        if(a.x == b.x) return a.y < b.y;
-        return a.x < b.x;
-    });
-
-    vi hulls = ConvexHull(a, n);
+    int ans = 0, pre = 0, couting;
+    for(auto s : m) {
+        cur += s.se;
+        if(maximize(ans, cur)) {
+            couting = s.fi;
+        }
+        if(pre != s.fi) a.pb(mp(pre, s.fi));
+        pre = s.fi;
+    }
+    cout << ans << endl;
+    for(auto s : a) if(s.fi == couting) {cout << s.fi << ' ' << s.se; return;}
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

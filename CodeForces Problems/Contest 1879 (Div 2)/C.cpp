@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: CF_1850F.cpp
+File name: C.cpp
 Code by : acident / lckintrovert
-Created since : 26/09/2023 ~~ 09:59:35
+Created since : 25/09/2023 ~~ 11:13:06
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -37,36 +37,38 @@ typedef pair<int, pi>        pii;
 typedef vector<int>          vi;
 typedef vector<vi>           vvi;
 typedef vector<pi>           vp;
-int const mod       =       1e9 + 7;
+int const mod       =       998244353ll;
 int const maxn      =       2e5 + 10;
 int const INF       =       1e18;
 
-int n, x;
-int cnt[maxn] = {}, ans[maxn] = {};
+string s;
 inline void solve() {
-	cin >> n;
-	int realAns = 0;
-	memset(cnt, 0, sizeof(cnt));
-	memset(ans, 0, sizeof(ans));
-	for(int i = 1; i <= n; i++) {
-		cin >> x;
-		if(x > n) continue;
-		cnt[x]++;
-	}
-	for(int i = 1; i <= n; i++) {
-		if(cnt[i]) {
-			for(int j = i; j <= n; j += i) ans[j] += cnt[i];
-		}
-	}
-	for(int i = 1; i <= n; i++) maximize(realAns, ans[i]);
-	cout << realAns << endl;
+    cin >> s;
+    vi a;
+    int cnt = 1;
+    for(int i = 1; i < s.size(); i++) {
+        if(s[i] != s[i - 1]) {
+            a.pb(cnt);
+            cnt = 1;
+        } else cnt++;
+    }
+    int ans = 0;
+    for(auto s : a) {
+        ans += s - 1;
+    }
+    cout << ans << ' ';
+    ans = 0;
+    for(auto s : a) {
+        (ans += s * (s - 1) / 2) %= mod;
+    }
+    cout << ans << endl;
 }
 signed main() {
-	ios_base:: sync_with_stdio(0);
-	cin.tie(NULL); cout.tie(NULL);
-	//File?
-	int tc; cin >> tc;
-	while(tc--) solve();
+    ios_base:: sync_with_stdio(0);
+    cin.tie(NULL); cout.tie(NULL);
+    //File?
+    int tc; cin >> tc;
+    while(tc--) solve();
 }
 
 /*A place to scribble thoughts

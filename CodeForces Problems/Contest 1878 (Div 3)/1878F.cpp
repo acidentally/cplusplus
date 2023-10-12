@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: CF_1850F.cpp
+File name: 1878F.cpp
 Code by : acident / lckintrovert
-Created since : 26/09/2023 ~~ 09:59:35
+Created since : 03/10/2023 ~~ 12:04:21
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -38,35 +38,37 @@ typedef vector<int>          vi;
 typedef vector<vi>           vvi;
 typedef vector<pi>           vp;
 int const mod       =       1e9 + 7;
-int const maxn      =       2e5 + 10;
+int const maxn      =       1e6 + 10;
 int const INF       =       1e18;
 
-int n, x;
-int cnt[maxn] = {}, ans[maxn] = {};
+bool minPrime[maxn] = {};
+vi primes;
+void eratos() {
+    minPrime[0] = minPrime[1] = 1;
+    for(int i = 2; i * i <= maxn; i++) {
+        if(minPrime[i] == 0) {
+            for(int j = i * i; j <= maxn; j += i) {
+                minPrime[j] = 1;
+            }
+        }
+    }
+    for(int i = 1; i <= maxn; i++) {
+        if(minPrime[i] == 0) primes.pb(i);
+    }
+}
+
+int n, q, x;
 inline void solve() {
-	cin >> n;
-	int realAns = 0;
-	memset(cnt, 0, sizeof(cnt));
-	memset(ans, 0, sizeof(ans));
-	for(int i = 1; i <= n; i++) {
-		cin >> x;
-		if(x > n) continue;
-		cnt[x]++;
-	}
-	for(int i = 1; i <= n; i++) {
-		if(cnt[i]) {
-			for(int j = i; j <= n; j += i) ans[j] += cnt[i];
-		}
-	}
-	for(int i = 1; i <= n; i++) maximize(realAns, ans[i]);
-	cout << realAns << endl;
+    // cin >> n >> q;
+    cout << primes.size();
 }
 signed main() {
-	ios_base:: sync_with_stdio(0);
-	cin.tie(NULL); cout.tie(NULL);
-	//File?
-	int tc; cin >> tc;
-	while(tc--) solve();
+    ios_base:: sync_with_stdio(0);
+    cin.tie(NULL); cout.tie(NULL);
+    //File?
+    eratos();
+    int tc; cin >> tc;
+    while(tc--) solve();
 }
 
 /*A place to scribble thoughts

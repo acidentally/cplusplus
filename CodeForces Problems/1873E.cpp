@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: CF_1850F.cpp
+File name: 1873E.cpp
 Code by : acident / lckintrovert
-Created since : 26/09/2023 ~~ 09:59:35
+Created since : 26/09/2023 ~~ 12:35:14
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -42,31 +42,36 @@ int const maxn      =       2e5 + 10;
 int const INF       =       1e18;
 
 int n, x;
-int cnt[maxn] = {}, ans[maxn] = {};
+int a[maxn] = {};
 inline void solve() {
-	cin >> n;
-	int realAns = 0;
-	memset(cnt, 0, sizeof(cnt));
-	memset(ans, 0, sizeof(ans));
-	for(int i = 1; i <= n; i++) {
-		cin >> x;
-		if(x > n) continue;
-		cnt[x]++;
-	}
-	for(int i = 1; i <= n; i++) {
-		if(cnt[i]) {
-			for(int j = i; j <= n; j += i) ans[j] += cnt[i];
-		}
-	}
-	for(int i = 1; i <= n; i++) maximize(realAns, ans[i]);
-	cout << realAns << endl;
+    cin >> n >> x;
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
+    int l = 1, r = 1e10;
+    int ans = 0;
+    while(l != r) {
+        int mid = l + r >> 1;
+        int cur = 0;
+        for(int i = 1; i <= n; i++) {
+            cur += max(0ll, mid - a[i]);
+        }
+        if(cur <= x) {
+            maximize(ans, mid);
+            l = mid + 1;
+        }
+        else {
+            r = mid;
+        }
+    }
+    cout << ans << endl;
 }
 signed main() {
-	ios_base:: sync_with_stdio(0);
-	cin.tie(NULL); cout.tie(NULL);
-	//File?
-	int tc; cin >> tc;
-	while(tc--) solve();
+    ios_base:: sync_with_stdio(0);
+    cin.tie(NULL); cout.tie(NULL);
+    //File?
+    int tc; cin >> tc;
+    while(tc--) solve();
 }
 
 /*A place to scribble thoughts

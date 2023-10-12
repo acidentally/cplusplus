@@ -1,74 +1,64 @@
-/*
-Good luck for those who are trying your best
-May the most glorious victory come
-File name: TIEPTHI.cpp
-Code by : acident / lckintrovert
-Created since : 21/09/2023 ~~ 17:15:42
-Literally the worst cp-er ever
-*/
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int                  long long
-#define uint                 unsigned long long
-#define dub                  double
-#define fi                   first
-#define se                   second
-#define endl                 '\n'
-#define pb                   push_back
-#define pf                   push_front
-#define eb                   emplace_back
-#define ins                  insert
-#define mp                   make_pair
-#define all(a)               a.begin(), a.end()
-#define YES                  cout << "YES\n"
-#define NO                   cout << "NO\n"
-#define coutdub(x)           cout << fixed << setprecision(x)
-#define cerrdub(x)           cerr << fixed << setprecision(x)
+#define int long long
+#define dub long double
+#define fi first
+#define se second
+#define pb push_back
+#define ins insert
+#define endl '\n'
+#define mp make_pair
 
-//#define _USE_MATH_DEFINES // If meth .__.
+typedef vector<int> vi;
+typedef pair<int, int> pi;
+const int mod = 1e9 + 7;
+const int INF = 1e15;
+const int maxn = 1e5 + 10;
 
-template<class T1, class T2> bool maximize(T1& a, T2 b) {if(b > a) {a = b; return 1;} return 0;}
-template<class T1, class T2> bool minimize(T1& a, T2 b) {if(b < a) {a = b; return 1;} return 0;}
-template<class T1> T1 abs(T1 a) {return max(a, -a);}
+template<class T1> bool minimize(T1 &a, T1 b) {if(b < a){a = b; return true;} else return false;}
+template<class T1> bool maximize(T1 &a, T1 b) {if(b > a){a = b; return true;} else return false;}
 
-typedef pair<int, int>       pi;
-typedef pair<int, pi>        pii;
-typedef vector<int>          vi;
-typedef vector<vi>           vvi;
-typedef vector<pi>           vp;
-const int mod       =        1e9 + 7;
-const int maxn      =        1e5 + 10;
-const int INF       =        1e15;
-
-int n, pre, u, v, cur = 0;
-map<int, int> m;
+int n, u, v;
 vector<pi> a;
-inline void solve() {
+map<int, int> m, m2;
+void solve(void) {
     cin >> n;
-    for(int i = 0; i < n; i++) {
+    for(int i = 1; i <= n; i++)
+    {
         cin >> u >> v;
-        m[u]++; m[v]--;
+        m[u] += 1; m[v] -= 1;
     }
-    int ans = 0, pre = 0, couting;
-    for(auto s : m) {
-        cur += s.se;
-        if(maximize(ans, cur)) {
-            couting = s.fi;
+    int cur = 0, pre = 0;
+    pi ans = mp(0, 0);
+    map<int, int>::iterator ptr = m.begin();
+    while(ptr != m.end()) {
+        cur += ptr -> se;
+        a.pb(mp(pre, ptr -> fi));
+        pre = ptr -> fi;
+        m2[ptr -> fi] = cur;
+        ptr++;
+    }
+    ptr = m2.begin();
+    while(ptr != m2.end()) {
+        if(maximize(ans.fi, ptr -> se)) ans.se = ptr -> fi;
+        ptr++;
+    }
+
+    cout << ans.fi << endl;
+    for(int i = 0; i < a.size(); i++) {
+        if(a[i].fi == ans.se) {
+            cout << a[i].fi << ' ' << a[i].se; return;
         }
-        if(pre != s.fi) a.pb(mp(pre, s.fi));
-        pre = s.fi;
     }
-    cout << ans << endl;
-    for(auto s : a) if(s.fi == couting) {cout << s.fi << ' ' << s.se; return;}
 }
-signed main() {
-    ios_base:: sync_with_stdio(0);
-    cin.tie(NULL); cout.tie(NULL);
-    //File?
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    freopen("TIEPTHI.INP", "r", stdin);
+    freopen("TIEPTHI.OUT", "w", stdout);
     solve();
 }
 
-/*A place to scribble thoughts
 
-*/

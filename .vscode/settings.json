@@ -13,7 +13,9 @@
         "unordered_set": "cpp",
         "initializer_list": "cpp",
         "regex": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "algorithm": "cpp",
+        "random": "cpp"
     },
     "background.filepath": "C:\\Users\\KIEN\\AppData\\Roaming\\.minecraft\\screenshots\\2023-08-09_16.26.53.png",
     "background.opacity": 1,

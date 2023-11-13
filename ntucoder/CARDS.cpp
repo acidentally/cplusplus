@@ -47,7 +47,7 @@ void solve() {
         else {
             if(qu.empty()) {cout << -1 << endl; continue;}
             int d = qu.top(), c = 0;
-            while(!qu.empty() && qu.top() == d) c++, qu.pop();
+            while(!qu.empty() && qu.top() == d) qu.pop();
             cout << d << ' ' << c << endl;
         }
     }

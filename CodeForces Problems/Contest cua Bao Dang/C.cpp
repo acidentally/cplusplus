@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: test.cpp
+File name: C.cpp
 Code by : acident / lckintrovert
-Created since : 13/12/2023 ~~ 12:42:47
+Created since : 27/01/2024 ~~ 21:40:09
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -38,23 +38,28 @@ typedef vector<int>          vi;
 typedef vector<vi>           vvi;
 typedef vector<pi>           vp;
 const int mod       =        1e9 + 7;
-const int maxn      =        1e5 + 10;
+const int maxn      =        2e5 + 10;
 const int INF       =        1e18;
 
-int dp[maxn] = {}, n;
+int n, ans, ansR = 0;
+int a[maxn] = {};
 inline void solve() {
-	cin >> n;
-	dp[1] = 3; dp[2] = 8;
-	for(int i = 3; i <= n; i++) {
-		(dp[i] = dp[i - 1] + dp[i - 2] << 1) %= mod;
-	}
-	cout << dp[n];
+    cin >> n;
+    ans = 0; ansR = 0;
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        ans = __gcd(ans, a[i]);
+    }
+    for(int i = 1; i <= n; i++) {
+        ansR += a[i]/ans - 1;
+    }
+    cout << ansR;
 }
 signed main() {
-	ios_base:: sync_with_stdio(0);
-	cin.tie(NULL); cout.tie(NULL);
-	//File?
-	solve();
+    ios_base:: sync_with_stdio(0);
+    cin.tie(NULL); cout.tie(NULL);
+    //File?
+    solve();
 }
 
 /*A place to scribble thoughts

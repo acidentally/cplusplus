@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: test.cpp
+File name: D.cpp
 Code by : acident / lckintrovert
-Created since : 13/12/2023 ~~ 12:42:47
+Created since : 27/01/2024 ~~ 21:42:44
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -38,25 +38,51 @@ typedef vector<int>          vi;
 typedef vector<vi>           vvi;
 typedef vector<pi>           vp;
 const int mod       =        1e9 + 7;
-const int maxn      =        1e5 + 10;
+const int maxn      =        2e5 + 10;
 const int INF       =        1e18;
 
-int dp[maxn] = {}, n;
+vi p;
+int n;
+bool isPrime[maxn] = {};
+void eratos() {
+    isPrime[0] = isPrime[1] = 1;
+    for(int i = 2; i * i <= n + 10; i++) {
+        if(!isPrime[i]) {
+            for(int j = i * i; j <= n + 10; j += i) {
+                isPrime[j] = 1;
+            }
+        }
+    }
+    for(int i = 2; i <= n + 10; i++) {
+        if(!isPrime[i]) p.pb(i);
+    }
+}
+
+int a[maxn] = {}, b[maxn] = {}, mini = 1e9;
+int uniMod = 0;
+bool check[maxn] = {};
 inline void solve() {
-	cin >> n;
-	dp[1] = 3; dp[2] = 8;
-	for(int i = 3; i <= n; i++) {
-		(dp[i] = dp[i - 1] + dp[i - 2] << 1) %= mod;
-	}
-	cout << dp[n];
+
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        b[i] = a[i] - a[i - 1];
+        if(i >= 2) uniMod = __gcd(uniMod, b[i]);
+        minimize(mini, a[i]);
+    }
+    for(int i = 2; i <= n; i++) {
+        b[i] = abs(b[i]);
+        for(int j = 0; p[j] < && !check[p[j]]; j++)
+    }
 }
 signed main() {
-	ios_base:: sync_with_stdio(0);
-	cin.tie(NULL); cout.tie(NULL);
-	//File?
-	solve();
+    ios_base:: sync_with_stdio(0);
+    cin.tie(NULL); cout.tie(NULL);
+    //File?
+    cin >> n;
+    eratos();
+    solve();
 }
 
 /*A place to scribble thoughts
 
-*/
+*/ 

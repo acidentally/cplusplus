@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: test.cpp
+File name: E.cpp
 Code by : acident / lckintrovert
-Created since : 13/12/2023 ~~ 12:42:47
+Created since : 27/01/2024 ~~ 22:11:04
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -38,23 +38,34 @@ typedef vector<int>          vi;
 typedef vector<vi>           vvi;
 typedef vector<pi>           vp;
 const int mod       =        1e9 + 7;
-const int maxn      =        1e5 + 10;
+const int maxn      =        2e5 + 10;
 const int INF       =        1e18;
 
-int dp[maxn] = {}, n;
+int n, a, ans = 0, tem;
+stack<int> q;
 inline void solve() {
-	cin >> n;
-	dp[1] = 3; dp[2] = 8;
-	for(int i = 3; i <= n; i++) {
-		(dp[i] = dp[i - 1] + dp[i - 2] << 1) %= mod;
-	}
-	cout << dp[n];
+    cin >> n;
+    q.push(0);
+    for(int i = 1; i <= n; i++) {
+        cin >> a;
+        if(a >= q.top()) {
+            // cerr << a << ' ' << q.top() << endl;
+            ans += a - q.top(); 
+            q.push(a);
+        }
+        else if(a < q.top()) {
+            while(a < q.top()) q.pop();
+            q.push(a);
+        }
+        // cerr << ans << endl;
+    }
+    cout << ans;
 }
 signed main() {
-	ios_base:: sync_with_stdio(0);
-	cin.tie(NULL); cout.tie(NULL);
-	//File?
-	solve();
+    ios_base:: sync_with_stdio(0);
+    cin.tie(NULL); cout.tie(NULL);
+    //File?
+    solve();
 }
 
 /*A place to scribble thoughts

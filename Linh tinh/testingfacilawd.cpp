@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: test.cpp
+File name: testingfacilawd.cpp
 Code by : acident / lckintrovert
-Created since : 13/12/2023 ~~ 12:42:47
+Created since : 25/12/2023 ~~ 19:52:00
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -41,20 +41,27 @@ const int mod       =        1e9 + 7;
 const int maxn      =        1e5 + 10;
 const int INF       =        1e18;
 
-int dp[maxn] = {}, n;
+int ans = 0, val;
 inline void solve() {
-	cin >> n;
-	dp[1] = 3; dp[2] = 8;
-	for(int i = 3; i <= n; i++) {
-		(dp[i] = dp[i - 1] + dp[i - 2] << 1) %= mod;
-	}
-	cout << dp[n];
+    for(int x = -4; x <= 4; x++) {
+        bool check = true;
+        for(int y = -x + 1; y <= 4 - 2 * x + 10; y++) {
+            if(x + 2 * y <= 0) continue;
+            // cout << x << ' ' << y;
+            val = x*x + 2*y*y + 3*x*y - 4*(x + y);
+            if(val <= 0) {
+                ans++;
+                // cout << x << ' ' << y << endl;;
+            }
+        }
+    }
+    cout << ans;
 }
 signed main() {
-	ios_base:: sync_with_stdio(0);
-	cin.tie(NULL); cout.tie(NULL);
-	//File?
-	solve();
+    ios_base:: sync_with_stdio(0);
+    cin.tie(NULL); cout.tie(NULL);
+    //File?
+    solve();
 }
 
 /*A place to scribble thoughts

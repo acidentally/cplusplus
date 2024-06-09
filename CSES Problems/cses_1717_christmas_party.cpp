@@ -11,6 +11,8 @@ using namespace std;
 #define vvi vector< vector<int> >
 #define endl '\n'
 
+#define _USE_MATH_DEFINES
+
 int const modn = (int)1e9 + 7;
 int n, ans;
 int x, y;
@@ -18,6 +20,7 @@ signed main() {
 	ios_base:: sync_with_stdio(0);
 	cin.tie(NULL); cout.tie(NULL);
 	cin >> n;
+	double fac = 6;
 	if(n == 1 || n == 2) {
 		cout << n - 1;
 		return 0;
@@ -29,9 +32,10 @@ signed main() {
 	x = 1; y = 2;
 	for(int i = 4; i <= n; i++) {
 		ans = ((i - 1) % modn) * (x % modn + y % modn) % modn;
+		fac *= i;
 		x = y; 
 		y = ans;
-		// cout << i << ": " << ans << endl;
+		cout << i << ": " << ans << ' ' << (int)(fac/M_E + (double)0.5) << endl;
 	}
 	cout << ans;
 }

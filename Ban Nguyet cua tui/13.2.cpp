@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: Circle.cpp
+File name: 13.2.cpp
 Code by : acident / lckintrovert
-Created since : 18/07/2024 ~~ 20:33:24
+Created since : 18/07/2024 ~~ 21:21:43
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -26,7 +26,7 @@ using namespace std;
 #define coutdub(x)           cout << fixed << setprecision(x)
 #define cerrdub(x)           cerr << fixed << setprecision(x)
 
-#define _USE_MATH_DEFINES // If meth .__.
+//#define _USE_MATH_DEFINES // If meth .__.
 
 template<class T1, class T2> bool maximize(T1& a, T2 b) {if(b > a) {a = b; return 1;} return 0;}
 template<class T1, class T2> bool minimize(T1& a, T2 b) {if(b < a) {a = b; return 1;} return 0;}
@@ -41,11 +41,15 @@ const int mod       =        1e9 + 7;
 const int maxn      =        1e5 + 10;
 const int INF       =        1e18;
 
-
-double c;
+int n, x = 0, cur = 0;
 inline void solve() {
-    cin >> c;
-    cout << (c * 9 / 5) + 32;
+    cin >> n;
+    for(int i = 1; i <= n; i++) {
+        cin >> x;
+        cur = __gcd(cur, x);
+    }
+    if(cur == 1) cout << n;
+    else cout << -1;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

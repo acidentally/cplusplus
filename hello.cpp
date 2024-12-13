@@ -3,7 +3,7 @@ Good luck for those who are trying your best
 May the most glorious victory come
 File name: hello.cpp
 Code by : acident / lckintrovert
-Created since : 18/10/2023 ~~ 20:12:37
+Created since : 06/12/2024 ~~ 19:03:50
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -41,11 +41,20 @@ const int mod       =        1e9 + 7;
 const int maxn      =        1e5 + 10;
 const int INF       =        1e18;
 
-int n;
+void compute(int a[maxn]) {
+    for(int i = 0; i < 100; i++) {
+        a[i] = -1;
+    }
+}
+
 inline void solve() {
-    cin >> n;
-    for(int i = 1; i <= n; i++) {
-        cin >> a[i];
+    int a[maxn] = {};
+    for(int i = 0; i < 100; i++) {
+        a[i] = i;
+    }
+    compute(a);
+    for(int i = 0; i < 100; i++) {
+        cout << a[i];
     }
 }
 signed main() {

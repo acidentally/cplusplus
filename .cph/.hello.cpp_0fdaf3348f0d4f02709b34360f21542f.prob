@@ -1,0 +1,1 @@
+{"name":"Local: hello","url":"c:\\Users\\KIEN\\OneDrive\\Desktop\\cplusplus\\hello.cpp","tests":[{"id":1727443777453,"input":"2\nR23C55\nBC23","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\KIEN\\OneDrive\\Desktop\\cplusplus\\hello.cpp","group":"local","local":true}

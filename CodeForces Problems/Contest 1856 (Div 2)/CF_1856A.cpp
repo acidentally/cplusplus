@@ -38,8 +38,10 @@ void solve() {
         cin >> a[i];
     }
     int stIdx = -1;
-    for(int i = n; i >= 0; i--) {
-        if(a[i] < a[i - 1]) {
+    for(int i = n; i >= 0; i--) 
+    {
+        if(a[i] < a[i - 1]) 
+        {
             stIdx = i - 1;
             break;
         }

@@ -41,10 +41,9 @@ const int mod       =        1e9 + 7;
 const int maxn      =        1e6 + 10;
 const int INF       =        1e18;
 
-int n;
 inline void solve() {
-    cin >> n;
-
+    cout << 1 << endl;
+    cout << 2;
 }
 signed main() {
     ios_base:: sync_with_stdio(0);

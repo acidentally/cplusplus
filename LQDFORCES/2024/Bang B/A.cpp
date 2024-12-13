@@ -1,0 +1,81 @@
+/*
+Good luck for those who are trying your best
+May the most glorious victory come
+File name: A.cpp
+Code by : acident / lckintrovert
+Created since : 14/09/2024 ~~ 14:32:22
+Literally the worst cp-er ever
+*/
+#include <bits/stdc++.h>
+using namespace std;
+ 
+#define int                 long long
+#define uint                unsigned long long
+#define dub                 double
+#define fi                  first
+#define se                  second
+#define endl                '\n'
+#define pb                  push_back
+#define pf                  push_front
+#define eb                  emplace_back
+#define ins                 insert
+#define mp                  make_pair
+#define all(a)              a.begin(), a.end()
+#define YES                 cout << "YES\n"
+#define NO                  cout << "NO\n"
+#define coutdub(x)          cout << fixed << setprecision(x)
+#define cerrdub(x)          cerr << fixed << setprecision(x)
+
+//#define _USE_MATH_DEFINES // If meth .__.
+
+template<class T1, class T2> bool maximize(T1& a, T2 b) {if(b > a) {a = b; return 1;} return 0;}
+template<class T1, class T2> bool minimize(T1& a, T2 b) {if(b < a) {a = b; return 1;} return 0;}
+template<class T1> T1 abs(T1 a) {return max(a, -a);}
+
+typedef pair<int, int>       pi;
+typedef pair<int, pi>        pii;
+typedef vector<int>          vi;
+typedef vector<vi>           vvi;
+typedef vector<pi>           vp;
+int const mod       =       1e9 + 7;
+int const maxn      =       5100;
+int const INF       =       1e18;
+
+
+int sqr(int k) {
+    return (k * k) % mod;
+}
+int modPow(int n, int k) {
+    if(k == 0) return 1;
+    if(k == 1) return n;
+    if(k % 2 == 0) return sqr(modPow(n, k / 2));
+    else return (n * sqr(modPow(n, k / 2))) % mod;
+}
+int n;
+inline void solve() {
+    cin >> n; 
+    int fac = 1;
+    for(int i = 1; i <= n; i++) {
+        fac = (fac * i) % mod;
+    }
+    int ans = modPow(fac, mod - 2);
+    // cerr << ans << endl;
+    // cerr << (ans * fac) % mod << endl;
+
+    for(int i = n + 2; i <= 2 * n; i++) {
+        ans = (ans * i) % mod;
+    }
+    cout << ans;
+
+}
+signed main() {
+    ios_base:: sync_with_stdio(0);
+    cin.tie(NULL); cout.tie(NULL);
+    //File?
+    int tc; cin >> tc;
+    while(tc--) {solve(); cout << endl;}
+}
+
+/*A place to scribble thoughts
+
+*/

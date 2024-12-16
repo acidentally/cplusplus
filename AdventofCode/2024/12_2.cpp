@@ -41,7 +41,7 @@ const int mod       =        1e9 + 7;
 const int maxn      =        1e3 + 10;
 const int INF       =        1e18;
 
-int width = 0, height = 0;
+int width = 0, height = 1;
 string a[maxn] = {};
 bool vis[maxn][maxn] = {};
 bool check(int i, int j) {
@@ -64,33 +64,64 @@ void find_path(int i, int j, char cur) {
 
 int compute() {
     int area = region.size();
-    int peri = 0;
+    int edge = 0;
     bool internalCheck[maxn][maxn] = {};
     for(auto block : region) {
-        peri += 4;
         int x = block.fi, y = block.se;
-        for(int d = 0; d < 4; d++) {
-            int u = x + dir[d].fi, v = y + dir[d].se;
-            if(check(u, v) && internalCheck[u][v]) peri -= 2;
-        }
         internalCheck[x][y] = 1;
     }
+    for(int col = 0; col < width; col++)
+    {   
+        for(int row = 0, cnt1 = 0, cnt2 = 0; row < height; row++) 
+        {
+            // Check left border - Right facing edge
+            if(col != 0 && (internalCheck[row][col] || !internalCheck[row][col - 1])) {
+                edge += (cnt1 > 0);
+                cnt1 = 0;
+            } else cnt1++;
 
-    // cerr << area << ' ' << peri << endl;
+            // Check right border - Left facing edge
+            if(col != width - 1 && (internalCheck[row][col] || !internalCheck[row][col + 1])) {
+                edge += (cnt2 > 0);
+                cnt2 = 0;
+            } else cnt2++;
+        }
+    }
+    for(int row = 0; row < height; row++) 
+    {
+        for(int col = 0, cnt1 = 0, cnt2 = 0; col < width; col++)
+        {
+            if(row != 0 && (internalCheck[row][col] || !internalCheck[row - 1][col])) {
+                edge += (cnt1 > 0);
+                cnt1 = 0;
+            } else cnt1++;
 
-    return area * peri;
+            if(row != height - 1 && (internalCheck[row][col] || !internalCheck[row + 1][col])) {
+                edge += (cnt2 > 0);
+                cnt2 = 0;
+            } else cnt2++;
+        }
+    }
+    // cerr << a[region[0].fi][region[0].se] << ' ' << area << ' ' << edge << endl;
+    return area * edge;
 }
 
 string s;
 inline void solve() {
     while(cin >> s) {
+        s = ' ' + s + ' ';
         a[height++] = s;
     }
+    string temp = "";
+    for(int i = 0; i < s.size() + 2; i++) {
+        temp = temp + ' ';
+    } a[0] = a[height++] = temp;
     width = s.size();
     int ans = 0;
     for(int i = 0; i < height; i++) {
         for(int j = 0; j < width; j++) {
             if(!vis[i][j]) {
+                if(a[i][j] == ' ') continue;
                 region.clear();
                 find_path(i, j, a[i][j]);
                 // cerr << a[i][j] << ' ';
@@ -98,6 +129,12 @@ inline void solve() {
             }
         }
     }
+
+/*     for(int i = 0; i < height; i++) {
+        for(int j = 0; j < width; j++) {
+            cout << a[i][j];
+        } cout << endl;
+    } */
     cout << ans;
 }
 signed main() {

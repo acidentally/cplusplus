@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: 12.cpp
+File name: 15.cpp
 Code by : acident / lckintrovert
-Created since : 16/12/2024 ~~ 00:07:54
+Created since : 16/12/2024 ~~ 17:00:03
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -41,63 +41,78 @@ const int mod       =        1e9 + 7;
 const int maxn      =        1e3 + 10;
 const int INF       =        1e18;
 
-int width = 0, height = 0;
+int WIDTH, HEIGHT = 0;
+int pos_x, pos_y;
+
 string a[maxn] = {};
-bool vis[maxn][maxn] = {};
-bool check(int i, int j) {
-    return (i >= 0 && i < height) && (j >= 0 && j < width);
-}
-vector<pi> region;
-pi dir[4] = {mp(-1, 0), mp(1, 0), mp(0, 1), mp(0, -1)};
-void find_path(int i, int j, char cur) {
-    region.pb(mp(i, j));
-    vis[i][j] = 1;
-    for(int d = 0; d < 4; d++) {
-        int u = i + dir[d].fi;
-        int v = j + dir[d].se;
-
-        if(check(u, v) && !vis[u][v] && a[u][v] == cur) {
-            find_path(u, v, cur);
+void process(pi dir) {
+    int cur_x = pos_x;
+    int cur_y = pos_y;
+    pi stop_point;
+    for(int i = 1;; i++) {
+        int u = cur_x + i * dir.fi;
+        int v = cur_y + i * dir.se;
+        if(a[u][v] == '#') return;
+        if(a[u][v] == '.') {
+            stop_point = mp(u, v);
+            break;
         }
     }
-}
 
-int compute() {
-    int area = region.size();
-    int peri = 0;
-    bool internalCheck[maxn][maxn] = {};
-    for(auto block : region) {
-        peri += 4;
-        int x = block.fi, y = block.se;
-        for(int d = 0; d < 4; d++) {
-            int u = x + dir[d].fi, v = y + dir[d].se;
-            if(check(u, v) && internalCheck[u][v]) peri -= 2;
+    dir.fi = -dir.fi;
+    dir.se = -dir.se;
+
+    for(;;) {
+        int u = stop_point.fi;
+        int v = stop_point.se;
+        a[u][v] = a[u + dir.fi][v + dir.se];
+        a[u + dir.fi][v + dir.se] = '.';
+        if(a[u][v] == '@') {
+            pos_x = u;
+            pos_y = v;
+            return;
         }
-        internalCheck[x][y] = 1;
+
+        stop_point.fi = u + dir.fi;
+        stop_point.se = v + dir.se;
     }
-
-    // cerr << area << ' ' << peri << endl;
-
-    return area * peri;
 }
 
 string s;
 inline void solve() {
+
+    map<char, pi> m;
+    m['>'] = mp(0, 1);
+    m['<'] = mp(0, -1);
+    m['^'] = mp(-1, 0);
+    m['v'] = mp(1, 0);
+    // a[row][col]
+    while(getline(cin, s)) {
+        a[HEIGHT++] = s;
+        if(s[0] != '#') break;
+        for(int i = 0; i < s.size(); i++) {
+            if(s[i] == '@') {
+                pos_x = HEIGHT - 1;
+                pos_y = i;                
+            }
+        }
+    } WIDTH = a[0].size();
+
     while(cin >> s) {
-        a[height++] = s;
+        for(int i = 0; i < s.size(); i++) {
+            process(m[s[i]]);
+        }
     }
-    width = s.size();
+
     int ans = 0;
-    for(int i = 0; i < height; i++) {
-        for(int j = 0; j < width; j++) {
-            if(!vis[i][j]) {
-                region.clear();
-                find_path(i, j, a[i][j]);
-                // cerr << a[i][j] << ' ';
-                ans += compute();
+    for(int row = 0; row < HEIGHT; row++) {
+        for(int col = 0; col < WIDTH; col++) {
+            if(a[row][col] == 'O') {
+                ans += 100 * row + col;
             }
         }
     }
+    cout << WIDTH << " " << HEIGHT << endl;
     cout << ans;
 }
 signed main() {

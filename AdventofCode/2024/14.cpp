@@ -1,9 +1,9 @@
 /*
 Good luck for those who are trying your best
 May the most glorious victory come
-File name: 12.cpp
+File name: 14.cpp
 Code by : acident / lckintrovert
-Created since : 16/12/2024 ~~ 00:07:54
+Created since : 16/12/2024 ~~ 15:26:44
 Literally the worst cp-er ever
 */
 #include <bits/stdc++.h>
@@ -38,65 +38,63 @@ typedef vector<int>          vi;
 typedef vector<vi>           vvi;
 typedef vector<pi>           vp;
 const int mod       =        1e9 + 7;
-const int maxn      =        1e3 + 10;
+const int maxn      =        1e5 + 10;
 const int INF       =        1e18;
 
-int width = 0, height = 0;
-string a[maxn] = {};
-bool vis[maxn][maxn] = {};
-bool check(int i, int j) {
-    return (i >= 0 && i < height) && (j >= 0 && j < width);
-}
-vector<pi> region;
-pi dir[4] = {mp(-1, 0), mp(1, 0), mp(0, 1), mp(0, -1)};
-void find_path(int i, int j, char cur) {
-    region.pb(mp(i, j));
-    vis[i][j] = 1;
-    for(int d = 0; d < 4; d++) {
-        int u = i + dir[d].fi;
-        int v = j + dir[d].se;
-
-        if(check(u, v) && !vis[u][v] && a[u][v] == cur) {
-            find_path(u, v, cur);
+pi compute(string user_inp) {
+    pi ans = mp(0, 0);
+    int i, neg;
+    for(i = 2, neg = 0; user_inp[i] != ','; i++) {
+        if(user_inp[i] == '-') {
+            neg = 1;
+            continue;
         }
-    }
-}
-
-int compute() {
-    int area = region.size();
-    int peri = 0;
-    bool internalCheck[maxn][maxn] = {};
-    for(auto block : region) {
-        peri += 4;
-        int x = block.fi, y = block.se;
-        for(int d = 0; d < 4; d++) {
-            int u = x + dir[d].fi, v = y + dir[d].se;
-            if(check(u, v) && internalCheck[u][v]) peri -= 2;
+        ans.fi = ans.fi * 10 + (neg ? -1 : 1) * (user_inp[i] - '0');
+    } i++;
+    for(bool neg = 0; i < user_inp.size(); i++) {
+        if(user_inp[i] == '-') {
+            neg = 1;
+            continue;
         }
-        internalCheck[x][y] = 1;
+        ans.se = ans.se * 10 + (neg ? -1 : 1) * (user_inp[i] - '0');
     }
+    return ans;
 
-    // cerr << area << ' ' << peri << endl;
-
-    return area * peri;
 }
 
-string s;
+string p, v;
+int a[200][200] = {};
+int WIDTH = 0, HEIGHT = 0;
 inline void solve() {
-    while(cin >> s) {
-        a[height++] = s;
+    int sec = 100;
+    WIDTH = 101; HEIGHT = 103;
+    while(cin >> p) {
+        cin >> v;
+        pi pos, velo;
+        pos = compute(p);
+        velo = compute(v);
+        pos.fi = ((pos.fi + sec * velo.fi) % WIDTH + 3 * WIDTH) % WIDTH;
+        pos.se = ((pos.se + sec * velo.se) % HEIGHT + 3 * HEIGHT) % HEIGHT;
+        a[pos.fi][pos.se]++;
     }
-    width = s.size();
-    int ans = 0;
-    for(int i = 0; i < height; i++) {
-        for(int j = 0; j < width; j++) {
-            if(!vis[i][j]) {
-                region.clear();
-                find_path(i, j, a[i][j]);
-                // cerr << a[i][j] << ' ';
-                ans += compute();
+
+    pi quad[4] = {
+                mp(0, 0), 
+                mp(WIDTH / 2 + 1, 0), 
+                mp(0, HEIGHT / 2 + 1), 
+                mp(WIDTH / 2 + 1, HEIGHT / 2 + 1)
+                };
+    int num_quad[4] = {};
+    for(int i = 0; i < WIDTH / 2; i++) {
+        for(int j = 0; j < HEIGHT / 2; j++) {
+            for(int q = 0; q < 4; q++) {
+                num_quad[q] += (a[i + quad[q].fi][j + quad[q].se]);
             }
-        }
+        }   
+    }
+    int ans = 1;
+    for(int q = 0; q < 4; q++) {
+        ans *= num_quad[q];
     }
     cout << ans;
 }
